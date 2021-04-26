@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-26 11:38:02
+" Last Modified: 2021-04-26 12:03:19
 " File:          plugin.vim
 " License:       MIT
 
@@ -164,9 +164,9 @@ if has_key(g:plugs, 'vim-which-key')
   let g:which_key_fallback_to_native_key=1
   " xmap s <plug>(SubversiveSubstituteRange)
   nnoremap <silent> <leader> :<c-u>WhichKey '<space>'<cr>
-  " nnoremap <silent> g :<c-u>WhichKey 'g'<cr>
+  nnoremap <silent> g :<c-u>WhichKey 'g'<cr>
   vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<space>'<cr>
-  " vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<cr>
+  vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<cr>
 endif
 
 if has_key(g:plugs, 'vim-easy-align')
