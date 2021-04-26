@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-26 19:55:11
+" Last Modified: 2021-04-26 20:01:16
 " File:          basic.vim
 " License:       MIT
 
@@ -173,20 +173,6 @@ unlet s:dir_list
 if !exists("g:plugs")
     " mode, buffer number, file path, preview window flag,
     " modified flag, read only flag
-    let s:mode_dict = {
-        \ 'n'  : 'NORMAL',
-        \ 'c'  : 'COMMAND',
-        \ 'i'  : 'INSERT',
-        \ 't'  : 'INSERT',
-        \ 'v'  : 'VISUAL',
-        \ 'V'  : 'VLINE',
-        \ '' : 'VBLOCK',
-        \ 's'  : 'SELECT',
-        \ 'S'  : 'SELECT',
-        \ '' : 'SELECT',
-        \ 'r'  : 'REPLACE',
-        \ 'R'  : 'REPLACE',
-      \ }
     set statusline=\ %{functions#GetMode()}\ \|\ [%n]\ %F\ %w\ %m\ %r
     if exists('g:loaded_vim_session_manager')
         set statusline+=\ %{SessionStatusLine()}

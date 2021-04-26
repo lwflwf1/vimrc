@@ -2,10 +2,24 @@
 " Maintainer    : lwflwf1
 " Website       : https://github.com/lwflwf1/vimrc.com
 " Created Time  : 2021-04-26 19:55:52
-" Last Modified : 2021-04-26 19:56:24
+" Last Modified : 2021-04-26 20:00:59
 " File          : functions.vim
 " License       : MIT
 
+let s:mode_dict = {
+  \ 'n'  : 'NORMAL',
+  \ 'c'  : 'COMMAND',
+  \ 'i'  : 'INSERT',
+  \ 't'  : 'INSERT',
+  \ 'v'  : 'VISUAL',
+  \ 'V'  : 'VLINE',
+  \ '' : 'VBLOCK',
+  \ 's'  : 'SELECT',
+  \ 'S'  : 'SELECT',
+  \ '' : 'SELECT',
+  \ 'r'  : 'REPLACE',
+  \ 'R'  : 'REPLACE',
+\ }
 function functions#UpdateLastModified() abort
   let l:cursor_positon = getcurpos()
   %s/\v(Last Modified\s*:\s+)%(%(\d|-|:|\s)+)/\=submatch(1).strftime("%Y-%m-%d %H:%M:%S")/e
