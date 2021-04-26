@@ -45,8 +45,8 @@ vnoremap <silent> <m-p> :<c-u>move '<-2<cr>gv=gv
 
 nnoremap <silent> tn :<c-u>tabnew<CR>
 nnoremap <silent> tu :<c-u>enew<CR>
-nnoremap <silent> <C-h> :<c-u>call MoveTabOrBuf(0)<CR>
-nnoremap <silent> <C-l> :<c-u>call MoveTabOrBuf(1)<CR>
+nnoremap <silent> <C-h> :<c-u>call functions#MoveTabOrBuf(0)<CR>
+nnoremap <silent> <C-l> :<c-u>call functions#MoveTabOrBuf(1)<CR>
 nnoremap <silent> <m-q> :<c-u>bd<CR>
 nnoremap <leader>wo <c-w>o
 nnoremap <leader>wr <c-w>R
@@ -82,7 +82,7 @@ nnoremap <silent> = :<c-u>bnext<cr>
 " noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
 " noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
-inoremap <silent> <c-k> <c-r>=ToggleCaseInInsertMode()<cr>
+inoremap <silent> <c-k> <c-r>=functions#ToggleCaseInInsertMode()<cr>
 
 inoremap <silent> <c-z> <c-o>zz
 

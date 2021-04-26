@@ -2,11 +2,13 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-26 11:19:27
+" Last Modified: 2021-04-26 19:55:11
 " File:          basic.vim
 " License:       MIT
 
 set nocompatible
+syntax on
+syntax enable
 set fileformat=unix
 set termguicolors
 set autoindent
@@ -114,7 +116,7 @@ if has('gui_running')
     set guioptions-=e " Hide tab
 endif
 filetype plugin indent on
-set runtimepath+=C:\disk_2\vim-session-manager
+set runtimepath+=C:/disk_2/vim-session-manager
 source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
 source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 
@@ -122,8 +124,6 @@ source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 " set lazyredraw
 " set showmatch
 " set matchtime=1
-" syntax on
-" syntax enable
 " set t_Co=256
 " set shell=powershell.exe
 " set virtualedit=block,onemore
@@ -187,7 +187,7 @@ if !exists("g:plugs")
         \ 'r'  : 'REPLACE',
         \ 'R'  : 'REPLACE',
       \ }
-    set statusline=\ %{GetMode()}\ \|\ [%n]\ %F\ %w\ %m\ %r
+    set statusline=\ %{functions#GetMode()}\ \|\ [%n]\ %F\ %w\ %m\ %r
     if exists('g:loaded_vim_session_manager')
         set statusline+=\ %{SessionStatusLine()}
     endif
@@ -244,78 +244,5 @@ augroup END
 
 augroup update_last_modified_on_write
   autocmd!
-  autocmd BufWritePre * call UpdateLastModified()
+  autocmd BufWritePre * call functions#UpdateLastModified()
 augroup END
-
-function UpdateLastModified() abort
-  let l:cursor_positon = getcurpos()
-  %s/\v(Last Modified\s*:\s+)%(%(\d|-|:|\s)+)/\=submatch(1).strftime("%Y-%m-%d %H:%M:%S")/e
-  call setpos('.', l:cursor_positon)
-endfunction
-
-function! MoveTabOrBuf(direction) abort
-
-  let s:exclude_ft = ["coc-explorer", "vista", "far", "leaderf"]
-  if index(s:exclude_ft, &ft) != -1 && winnr('$') != 1
-    return
-  endif
-
-  if &ft ==# "floaterm"
-    if a:direction == 0
-      exec "FloatermNext"
-    else
-      exec "FloatermPrev"
-    endif
-    return
-  endif
-
-  if tabpagenr('$') > 1
-    if a:direction == 0
-      exec 'tabprevious'
-    elseif a:direction == 1
-      exec 'tabnext'
-    endif
-  else
-    if a:direction == 0
-      exec 'bprevious'
-    elseif a:direction == 1
-      exec 'bnext'
-    endif
-  endif
-endfunction
-
-function! SetTitle() abort
-  call setline(1, "\#!/usr/bin/python")
-  call setline(2, "\# -*- encoding=utf8 -*-")
-  call setline(3, "\"\"\"")
-  call setline(4, "\# @Author       : Gong Yingfan")
-  call setline(5, "\# @Created Time : ".strftime("%Y-%m-%d %H:%M:%S"))
-  call setline(6, "\# @Description  : ")
-  call setline(7, "\"\"\"")
-  normal! Gk$
-  startinsert!
-endfunction
-
-function! GetMode() abort
-    let l:m = mode()
-    if &ft ==# 'help'
-        return 'HELP'
-    elseif &ft ==# 'sessionlist'
-        return 'SessionList'
-    elseif has_key(s:mode_dict, m)
-        return s:mode_dict[m]
-    else
-        return ''
-    endif
-endfunction
-
-function! ToggleCaseInInsertMode() abort
-  let l:col = col(".")
-  let l:is_firstchar = !l:col || getline('.')[l:col - 2] =~# '\s'
-  if !l:is_firstchar
-    call cursor(0, l:col - 1)
-  endif
-  execute "normal! viw~"
-  call cursor(0, l:col)
-  return ''
-endfunction

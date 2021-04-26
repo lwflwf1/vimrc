@@ -2,99 +2,224 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-26 12:03:19
+" Last Modified: 2021-04-26 18:43:03
 " File:          plugin.vim
 " License:       MIT
 
-if has('nvim')
-  call plug#begin(stdpath('data').'/plugged')
-elseif has('vim')
-  call plug#begin('~/.vim/plugged')
-endif
-
-Plug 'ajmwagar/vim-deus'
-Plug 'joshdick/onedark.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-Plug 'easymotion/vim-easymotion'
-Plug 'justinmk/vim-sneak'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'airblade/vim-gitgutter'
-Plug 'AndrewRadev/switch.vim'
-Plug 'skywind3000/vim-dict'
-Plug 'Yggdroot/indentLine'
-" Plug 'vhda/verilog_systemverilog.vim', {'for': ['verilog', 'systemverilog']}
-Plug 'vhda/verilog_systemverilog.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'yianwillis/vimcdoc'
-Plug 'gcmt/wildfire.vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'honza/vim-snippets'
-Plug 'RRethy/vim-illuminate'
-Plug 'dhruvasagar/vim-table-mode', { 'on':['TableModeEnable', 'TableModeToggle'], 'for': ['text', 'markdown', 'vim-plug'] }
-Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
-Plug 'dkarter/bullets.vim'
-Plug 'svermeulen/vim-subversive'
-Plug 'brooth/far.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
-" Plug 'haya14busa/incsearch.vim'
-" Plug 'kana/vim-textobj-user'
-
-if has('nvim') || v:version >=# 800
-  Plug 'skywind3000/asyncrun.vim'
-  Plug 'skywind3000/asynctasks.vim'
-  Plug 'skywind3000/asyncrun.extra'
-endif
-
+let s:dein_path = g:dein_dir.'/repos/github.com/Shougo/dein.vim'
+let &runtimepath .= ','.s:dein_path
+let g:dein#install_max_processes = 12
+call dein#begin(g:dein_dir)
+call dein#add(s:dein_path)
+call dein#add('ajmwagar/vim-deus')
+call dein#add( 'vim-airline/vim-airline')
+call dein#add( 'vim-airline/vim-airline-themes')
+call dein#add( 'ryanoasis/vim-devicons')
+call dein#disable('vim-airline')
+call dein#disable('vim-devicons')
+call dein#disable('vim-airline-themes')
+call dein#add( 'tpope/vim-repeat')
 " coc.nvim requires node 10.12+
-if has('nvim-0.3.2') || has('patch-8.0.1453')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
+call dein#add( 'neoclide/coc.nvim', {
+  \ 'if': "has('nvim-0.3.2') || has('patch-8.0.1453')",
+  \ 'rev': 'release'
+  \ })
+" vista.vim requires neovim or vim 8.0.27+ if you want ctags to run asynchonously
+" vista.vim requires fzf 0.22+ if you want to use fzf
+" vista.vim only support universal-ctags
+call dein#add( 'liuchengxu/vista.vim', {
+  \ 'lazy': 1,
+  \ 'on_cmd': ['Vista', 'Vista!', 'Vista!!']
+  \ })
+call dein#add( 'skywind3000/vim-dict', {
+  \ 'lazy': 1,
+  \ 'on_event': 'InsertEnter'
+  \ })
+call dein#add( 'joshdick/onedark.vim', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'colorscheme onedark',
+  \ })
+call dein#add( 'easymotion/vim-easymotion', {
+  \ 'lazy': 1,
+  \ 'on_map': '<Plug>(easymotion'
+  \ })
+call dein#add( 'justinmk/vim-sneak', {
+  \ 'lazy': 1,
+  \ 'on_map': '<Plug>Sneak'
+  \ })
+call dein#add( 'sheerun/vim-polyglot', {
+  \ 'lazy': 1,
+  \ 'on_event': 'BufReadPre'
+  \ })
+call dein#add( 'tpope/vim-surround', {
+  \ 'lazy': 1,
+  \ 'on_map': {'n': ['cs', 'ds', 'ys', 'cS', 'yS'], 'v': ['S', 'gS']}
+  \ })
+call dein#add( 'tpope/vim-fugitive',{
+  \ 'lazy': 1,
+  \ 'on_cmd': ['G', 'Git', 'Git', 'Gwrite', 'Gread', 'Gdiffsplit']
+  \ })
+call dein#add( 'tpope/vim-commentary', {
+  \ 'lazy': 1,
+  \ 'on_map': 'gc'
+  \ })
+call dein#add( 'airblade/vim-gitgutter', {
+  \ 'lazy': 1,
+  \ 'on_event': 'BufReadPre'
+  \ })
+call dein#add( 'AndrewRadev/switch.vim', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'Switch'
+  \ })
+call dein#add( 'Yggdroot/indentLine', {
+  \ 'lazy': 1,
+  \ 'on_event': 'BufReadPre'
+  \ })
+call dein#add( 'vhda/verilog_systemverilog.vim', {
+  \ 'lazy': 1,
+  \ 'on_event': 'BufReadPre'
+  \ })
+call dein#add( 'ludovicchabant/vim-gutentags', {
+  \ 'lazy':1,
+  \ 'on_event': 'BufReadPost'
+  \ })
+call dein#add( 'yianwillis/vimcdoc', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'help',
+  \ 'on_map': 'K'
+  \ })
+call dein#add( 'gcmt/wildfire.vim', {
+  \ 'lazy': 1,
+  \ 'on_map': {'n': '<Plug>(wildfire-fuel)', 'v': '<Plug>(wildfire-water)'}
+  \ })
+call dein#add( 'mg979/vim-visual-multi', {
+  \ 'lazy': 1,
+  \ 'on_map': ['<c-j>', '<c-k>', '<c-n>'],
+  \ 'on_source': 'vim-surround',
+  \ 'rev': 'master'
+  \ })
+call dein#add( 'honza/vim-snippets', {
+  \ 'lazy': 1,
+  \ 'on_event': 'InsertEnter'
+  \ })
+call dein#add( 'RRethy/vim-illuminate', {
+  \ 'lazy': 1,
+  \ 'on_event': 'BufReadPre'
+  \ })
+call dein#add( 'dhruvasagar/vim-table-mode', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'TableModeEnable',
+  \ 'on_ft': 'markdown'
+  \ })
+call dein#add( 'mzlogin/vim-markdown-toc', {
+  \ 'lazy': 1,
+  \ 'on_ft': 'markdown'
+  \ })
+call dein#add( 'dkarter/bullets.vim', {
+  \ 'lazy': 1,
+  \ 'on_ft': ['markdown', 'text']
+  \ })
+call dein#add( 'svermeulen/vim-subversive', {
+  \ 'lazy': 1,
+  \ 'on_map': '<plug>(SubversiveSubstitute'
+  \ })
+call dein#add( 'brooth/far.vim', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'Far'
+  \ })
+call dein#add( 'junegunn/vim-easy-align', {
+  \ 'lazy': 1,
+  \ 'on_map': '<plug>(EasyAlign)'
+  \ })
+call dein#add( 'liuchengxu/vim-which-key', {
+  \ 'lazy': 1,
+  \ 'on_map': ['WhichKey', 'WhichKey!']
+  \ })
+call dein#add( 'mbbill/undotree', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'UndotreeToggle'
+  \ })
+call dein#add( 'skywind3000/asyncrun.vim', {
+  \ 'if': "has('nvim') || v:version >=# 800",
+  \ 'lazy': 1,
+  \ 'on_cmd': 'AsyncRun',
+  \ })
+call dein#add( 'skywind3000/asynctasks.vim', {
+  \ 'if': "has('nvim') || v:version >=# 800",
+  \ 'lazy': 1,
+  \ 'on_cmd': ['AsyncTask', 'AsyncTaskList', 'AsyncTaskEdit'],
+  \ 'on_source': 'asyncrun.vim'
+  \ })
+call dein#add( 'skywind3000/asyncrun.extra', {
+  \ 'if': "has('nvim') || v:version >=# 800",
+  \ 'lazy': 1,
+  \ 'on_cmd': 'AsyncRun',
+  \ 'on_source': 'asyncrun.vim'
+  \ })
 
-" requires neovim or vim 8.0.27+ if you want to ctags to run asynchonously
-" fzf 0.22+ if you want to use fzf
-" only support universal-ctags
-if has('nvim') || has('patch-7.4.1154')
-  Plug 'liuchengxu/vista.vim'
-endif
-
-if has('nvim') || v:version >=# 801
-  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-endif
+call dein#add( 'iamcco/markdown-preview.nvim', {
+  \ 'if': "has('nvim') || v:version >=# 801",
+  \ 'lazy': 1,
+  \ 'on_ft': 'markdown',
+  \ 'hook_post_update': 'call mkdp#util#install()'
+  \ })
 
 if has('nvim-0.4') || v:version >=# 802
-  Plug 'voldikss/vim-floaterm', {'on': ['FloatermNew', 'FloatermToggle']}
-  Plug 'voldikss/LeaderF-floaterm'
+call dein#add( 'voldikss/vim-floaterm', {
+  \ 'if': "has('nvim-0.4') || v:version >=# 802",
+  \ 'lazy': 1,
+  \ 'on_cmd': ['FloatermNew', 'FloatermToggle', 'FloatermSend']
+  \ })
+call dein#add( 'voldikss/LeaderF-floaterm', {
+  \ 'if': "has('nvim-0.4') || v:version >=# 802",
+  \ 'lazy': 1,
+  \ 'on_cmd': 'Leaderf floaterm',
+  \ 'on_source':['vim-floaterm', 'LeaderF'],
+  \ })
 endif
 
 if has('python3') && (has('nvim') || has('patch-7.4.330'))
-  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-  Plug 'Yggdroot/LeaderF-marks'
+call dein#add( 'Yggdroot/LeaderF', {
+  \ 'if': "has('python3')",
+  \ 'lazy': 1,
+  \ 'on_map': '<leaderf>f',
+  \ 'hook_post_update': 'LeaderfInstallCExtension'
+  \ })
+call dein#add( 'Yggdroot/LeaderF-marks', {
+  \ 'if': "has('python3')",
+  \ 'lazy': 1,
+  \ 'on_cmd': 'LeaderfMarks',
+  \ 'on_source': 'LeaderF'
+  \ })
 endif
 
 if has('python3') && has('nvim')
-  Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': ['python', 'vim-plug']}
+call dein#add( 'numirias/semshi', {
+  \ 'if': "has('python3') && has('nvim')",
+  \ 'lazy': 1,
+  \ 'on_ft': 'python',
+  \ 'hook_post_update': 'UpdateRemotePlugins'
+  \ })
 endif
 
-" Plug 'preservim/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" Plug 'skywind3000/vim-terminal-help'
-" Plug 'skywind3000/vim-auto-popmenu'
-" Plug 'Linfee/ultisnips-zh-doc'
-" Plug 'SirVer/ultisnips'
-" Plug 'codota/tabnine-vim'
+" call dein#add( 'haya14busa/incsearch.vim')
+" call dein#add( 'kana/vim-textobj-user')
+" call dein#add( 'preservim/nerdtree')
+" call dein#add( 'Xuyuanp/nerdtree-git-plugin')
+" call dein#add( 'tiagofumo/vim-nerdtree-syntax-highlight')
+" call dein#add( 'skywind3000/vim-terminal-help')
+" call dein#add( 'skywind3000/vim-auto-popmenu')
+" call dein#add( 'Linfee/ultisnips-zh-doc')
+" call dein#add( 'SirVer/ultisnips')
+" call dein#add( 'codota/tabnine-vim')
+call dein#end()
+if dein#check_install()
+  call dein#install()
+endif
+unlet s:dein_path
 
-call plug#end()
 
-if has_key(g:plugs, 'vim-easymotion')
+if dein#tap('vim-easymotion')
   let g:Easymotion_do_mapping       = 0
   " let g:Easymotion_use_upper = 1
   let g:Easymotion_smartcase        = 1
@@ -114,7 +239,7 @@ if has_key(g:plugs, 'vim-easymotion')
   map gl <Plug>(easymotion-jumptoanywhere)
   " nmap ; <Plug>(easymotion-next)
   " nmap , <Plug>(easymotion-prev)
-  if has_key(g:plugs, 'coc.nvim')
+  if dein#tap('coc.nvim')
     augroup easymotion_coc_group
       autocmd!
       autocmd User EasyMotionPromptBegin silent! CocDisable
@@ -123,7 +248,7 @@ if has_key(g:plugs, 'vim-easymotion')
   endif
 endif
 
-if has_key(g:plugs, 'incsearch.vim')
+if dein#tap('incsearch.vim')
   " map /  <Plug>(incsearch-forward)
   " map ?  <Plug>(incsearch-backward)
   " map g/ <Plug>(incsearch-stay)
@@ -137,7 +262,7 @@ if has_key(g:plugs, 'incsearch.vim')
   " nmap g# <Plug>(incsearch-nohl-g#)
 endif
 
-if has_key(g:plugs, 'vim-subversive')
+if dein#tap('vim-subversive')
   nmap s  <plug>(SubversiveSubstitute)
   xmap s  <plug>(SubversiveSubstitute)
   nmap ss <plug>(SubversiveSubstituteLine)
@@ -148,15 +273,15 @@ if has_key(g:plugs, 'vim-subversive')
   nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 endif
 
-if has_key(g:plugs, 'vim-deus')
+if dein#tap('vim-deus')
   colorscheme deus
 endif
 
-if has_key(g:plugs, 'undotree')
+if dein#tap('undotree')
   nnoremap <silent> <leader>u :UndotreeToggle<cr>
 endif
 
-if has_key(g:plugs, 'vim-which-key')
+if dein#tap('vim-which-key')
   if has('nvim-0.4.2') || has('patch-8.1.1615')
     let g:which_key_use_floating_win = 1
   endif
@@ -169,17 +294,17 @@ if has_key(g:plugs, 'vim-which-key')
   vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<cr>
 endif
 
-if has_key(g:plugs, 'vim-easy-align')
+if dein#tap('vim-easy-align')
   nmap ga <Plug>(EasyAlign)
   xmap ga <Plug>(EasyAlign)
 endif
 
-if has_key(g:plugs, 'vim-auto-popmenu')
+if dein#tap('vim-auto-popmenu')
   let g:apc_enable_ft = {'markdown':1, 'text':1}
   let g:apc_enable_ft = {'*':1}
 endif
 
-if has_key(g:plugs, 'ultisnips')
+if dein#tap('ultisnips')
   let g:UltiSnipsExpandTrigger="<m-e>"
   let g:UltiSnipsJumpForwardTrigger="<m-e>"
   let g:UltiSnipsSnippetDir=stdpath('config').'\Ultisnips'
@@ -187,7 +312,7 @@ if has_key(g:plugs, 'ultisnips')
   let g:UltiSnipsEditSplit="vertical"
 endif
 
-if has_key(g:plugs, 'coc.nvim')
+if dein#tap('coc.nvim')
   if has('nvim-0.4.0') || has('patch-8.2.0750')
     nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
     nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
@@ -226,9 +351,9 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 inoremap <silent><expr> <c-p> coc#refresh()
 
 "diagnostics
-nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>d <Plug>(coc-diagnostic-info)
+nmap <silent> <leader>dk <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>dj <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>dd <Plug>(coc-diagnostic-info)
 
 nnoremap <silent> <leader>p  :<C-u>CocList -A --normal yank<cr>
 
@@ -297,7 +422,7 @@ let g:coc_global_extensions = [
 
 endif
 
-if has_key(g:plugs, 'vim-gitgutter')
+if dein#tap('vim-gitgutter')
 
 let g:gigutter_enable = 1
 let g:gitgutter_highlight_lines = 0
@@ -324,7 +449,7 @@ nnoremap <silent> <leader>gf :GitGutterFold<cr>
 
 endif
 
-if has_key(g:plugs, 'vim-fugitive')
+if dein#tap('vim-fugitive')
 
 nnoremap <silent> <leader>gw :Gwrite<cr>
 nnoremap <silent> <leader>gc :Git commit<cr>
@@ -337,14 +462,14 @@ nnoremap <silent> <leader>ge :Git rebase
 
 endif
 
-if has_key(g:plugs, 'vim-sneak')
+if dein#tap('vim-sneak')
 
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 
 endif
 
-if has_key(g:plugs, 'LeaderF')
+if dein#tap('LeaderF')
 let g:Lf_Ctags = 'C:/disk_1/ctags/ctags.exe'
 let g:Lf_IgnoreCurrentBufferName = 1
 let g:Lf_ShowDevIcons = 1
@@ -406,7 +531,7 @@ xmap <silent> gf <Plug>LeaderfRgVisualLiteralNoBoundary<cr>
 " xnoremap <silent> gf :<c-u><c-r>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<cr><cr>
 endif
 
-if has_key(g:plugs, 'vim-airline')
+if dein#tap('vim-airline')
   "adding to vim-airline's tabline
   let g:webdevicons_enable_airline_tabline = 1
   "adding to vim-airline's statusline
@@ -425,7 +550,7 @@ if has_key(g:plugs, 'vim-airline')
 
 endif
 
-if has_key(g:plugs, 'switch.vim')
+if dein#tap('switch.vim')
 
 let g:switch_mapping = "ts"
 let g:switch_custom_definitions =
@@ -446,7 +571,7 @@ let g:switch_custom_definitions =
 
 endif
 
-if has_key(g:plugs, 'vim-gutentags')
+if dein#tap('vim-gutentags')
 
 " set statusline+=%{gutentags#statusline()}
 " set the file name suffix of tags file
@@ -467,13 +592,13 @@ let g:gutentags_ctags_extra_args = ['--extras=+q', '--fileds=+i', '-n']
 
 endif
 
-if has_key(g:plugs, 'asynctasks.vim')
+if dein#tap('asynctasks.vim')
 " F4 to run AsyncTask [runTask]
 nnoremap <silent><f4> :AsyncTask runTask<cr>
 let g:asynctasks_rtp_config = "global_tasks.ini"
 endif
 
-if has_key(g:plugs, 'asyncrun.vim')
+if dein#tap('asyncrun.vim')
 let g:asyncrun_open = 15
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 let g:asynctasks_term_pos = 'external'
@@ -562,7 +687,7 @@ endfunc
 
 endif
 
-if has_key(g:plugs, 'vim-visual-multi')
+if dein#tap('vim-visual-multi')
 
 let g:VM_maps = {}
 let g:VM_maps['Add Cursor Down'] = '<c-j>'
@@ -570,7 +695,7 @@ let g:VM_maps['Add Cursor Up'] = '<c-k>'
 
 endif
 
-if has_key(g:plugs, 'vista.vim')
+if dein#tap('vista.vim')
 
 let g:vista_sidebar_width = 40
 let g:vista_cursor_delay = 100
@@ -587,7 +712,7 @@ nnoremap <silent> <leader>v :Vista!!<cr>
 
 endif
 
-if has_key(g:plugs, 'markdown-preview.nvim')
+if dein#tap('markdown-preview.nvim')
 
 " ********************************************************************************
 " settings of the markdown-preview.nvim
@@ -690,7 +815,7 @@ let g:mkdp_filetypes = ['markdown']
 
 endif
 
-if has_key(g:plugs, 'vim-table-mode')
+if dein#tap('vim-table-mode')
 
 " ********************************************************************************
 " key bindings of the vim-table-mode
@@ -706,7 +831,7 @@ augroup END
 
 endif
 
-if has_key(g:plugs, 'vim-floaterm')
+if dein#tap('vim-floaterm')
 
 " ********************************************************************************
 " settings of the floaterm positon
@@ -742,7 +867,7 @@ nnoremap <silent> <m-r> :FloatermNew rg<cr>
 
 endif
 
-if has_key(g:plugs, 'indentLine')
+if dein#tap('indentLine')
 
   " let g:indentLine_enabled = 0
   let g:indentLine_concealcursor = 'nc'
@@ -752,11 +877,11 @@ if has_key(g:plugs, 'indentLine')
   let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help']
 endif
 
-if has_key(g:plugs, 'far.vim')
+if dein#tap('far.vim')
   let g:far#enable_undo=1
 endif
 
-if has_key(g:plugs, 'bullets.vim')
+if dein#tap('bullets.vim')
   let g:bullets_enabled_file_types = [
   \ 'markdown',
   \ 'text',
@@ -769,7 +894,7 @@ if has_key(g:plugs, 'bullets.vim')
   let g:bullets_line_spacing = 2
 endif
 
-if has_key(g:plugs, 'semshi') && has_key(g:plugs, 'vim-illuminate')
+if dein#tap('semshi') && dein#tap('vim-illuminate')
   function MyCustomHighLights()
     highlight semshiBuiltin ctermfg=87 guifg=#5fffff
     highlight semshiSelected ctermfg=231 guifg=#ffffff ctermbg=33 guibg=#0087ff
@@ -781,9 +906,9 @@ if has_key(g:plugs, 'semshi') && has_key(g:plugs, 'vim-illuminate')
   augroup END
 endif
 
-if has_key(g:plugs, 'vim-illuminate')
+if dein#tap('vim-illuminate')
 
-  if has_key(g:plugs, 'semshi')
+  if dein#tap('semshi')
     let g:Illuminate_ftblacklist = ['python']
   endif
 

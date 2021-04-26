@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:52:14
-" Last Modified: 2021-04-25 17:14:44
+" Last Modified: 2021-04-26 14:06:23
 " File:          config.vim
 " License:       MIT
 
@@ -22,3 +22,5 @@ if has('win32') || has('win64')
 else
     let g:is_windows = 0
 endif
+
+let g:dein_dir = 'C:/Users/79941/AppData/Local/nvim-data/dein'
