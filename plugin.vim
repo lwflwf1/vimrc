@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-27 13:18:05
+" Last Modified: 2021-04-27 14:18:33
 " File:          plugin.vim
 " License:       MIT
 
@@ -241,7 +241,6 @@ if dein#tap('lightline.vim')
     \ }
 endif
 
-call delete()
 if dein#tap('spaceline.vim')
   let g:spaceline_diff_tool = 'git-gutter'
   let g:spaceline_seperate_style = 'arrow-fade'
@@ -591,7 +590,8 @@ endif
 
 if dein#tap('switch.vim')
 
-let g:switch_mapping = "ts"
+let g:switch_mapping = ""
+nnoremap <silent> ts :Switch<cr>
 let g:switch_custom_definitions =
   \ [
   \   ['&', '|'],
