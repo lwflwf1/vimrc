@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-28 02:43:54
+" Last Modified: 2021-04-28 03:18:56
 " File:          plugin.vim
 " License:       MIT
 
@@ -15,7 +15,20 @@ command! -nargs=* DeinInstall    call dein#install(<f-args>)
 command! -nargs=* DeinRecache    call dein#recache_runtimepath(<f-args>)
 command! -nargs=0 DeinClean      call map(dein#check_clean(), "delete(v:val, 'rf')")
 command! -nargs=0 DeinClearState call dein#clear_state()
-command! -nargs=0 DeinCheckClean execute 'echo dein#check_clean()'
+command! -nargs=0 DeinCheckClean execute 'echomsg '.(!empty(dein#check_clean()) ? "'Unused plugins: '".dein#check_clean() : "'No unused plugin'")
+command! -nargs=0 DeinList       call <SID>dein_list()
+function s:dein_list() abort
+  echomsg '[dein] S: sourced, X: not installed'
+  for [name, plugin] in items(dein#get())
+    let prefix = ' '
+    if !isdirectory(plugin.path) 
+      let prefix = 'X'
+    elseif plugin.sourced
+      let prefix = 'S'
+    endif
+    echomsg prefix name
+  endfor
+endfunction
 
 if dein#load_state(g:dein_dir)
 call dein#begin(g:dein_dir)
