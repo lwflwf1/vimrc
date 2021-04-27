@@ -2,42 +2,51 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-26 18:43:03
+" Last Modified: 2021-04-27 13:18:05
 " File:          plugin.vim
 " License:       MIT
 
 let s:dein_path = g:dein_dir.'/repos/github.com/Shougo/dein.vim'
 let &runtimepath .= ','.s:dein_path
 let g:dein#install_max_processes = 12
+let g:dein#auto_recache = 1
+command! -nargs=* DeinUpdate call dein#update(<f-args>)
+command! -nargs=* DeinInstall call dein#install(<f-args>)
+command! -nargs=* DeinRecache call dein#recache_runtimepath(<f-args>)
+command! -nargs=0 DeinClean call map(dein#check_clean(), "delete(v:val, 'rf')")
+
 call dein#begin(g:dein_dir)
+
 call dein#add(s:dein_path)
+
 call dein#add('ajmwagar/vim-deus')
-call dein#add( 'vim-airline/vim-airline')
-call dein#add( 'vim-airline/vim-airline-themes')
+call dein#add( 'joshdick/onedark.vim')
 call dein#add( 'ryanoasis/vim-devicons')
-call dein#disable('vim-airline')
-call dein#disable('vim-devicons')
-call dein#disable('vim-airline-themes')
+" call dein#add( 'vim-airline/vim-airline')
+" call dein#add( 'vim-airline/vim-airline-themes')
+call dein#add('itchyny/lightline.vim')
+" call dein#add('theniceboy/eleline.vim')
+" call dein#add('glepnir/spaceline.vim')
+" call dein#add('liuchengxu/eleline.vim')
+" call dein#add('bagrat/vim-buffet')
 call dein#add( 'tpope/vim-repeat')
+call dein#add( 'mzlogin/vim-markdown-toc')
 " coc.nvim requires node 10.12+
 call dein#add( 'neoclide/coc.nvim', {
   \ 'if': "has('nvim-0.3.2') || has('patch-8.0.1453')",
-  \ 'rev': 'release'
+  \ 'rev': 'release',
   \ })
 " vista.vim requires neovim or vim 8.0.27+ if you want ctags to run asynchonously
 " vista.vim requires fzf 0.22+ if you want to use fzf
 " vista.vim only support universal-ctags
 call dein#add( 'liuchengxu/vista.vim', {
   \ 'lazy': 1,
-  \ 'on_cmd': ['Vista', 'Vista!', 'Vista!!']
+  \ 'on_cmd': ['Vista', 'Vista!', 'Vista!!'],
+  \ 'on_event': 'BufReadPre'
   \ })
 call dein#add( 'skywind3000/vim-dict', {
   \ 'lazy': 1,
   \ 'on_event': 'InsertEnter'
-  \ })
-call dein#add( 'joshdick/onedark.vim', {
-  \ 'lazy': 1,
-  \ 'on_cmd': 'colorscheme onedark',
   \ })
 call dein#add( 'easymotion/vim-easymotion', {
   \ 'lazy': 1,
@@ -55,14 +64,16 @@ call dein#add( 'tpope/vim-surround', {
   \ 'lazy': 1,
   \ 'on_map': {'n': ['cs', 'ds', 'ys', 'cS', 'yS'], 'v': ['S', 'gS']}
   \ })
-call dein#add( 'tpope/vim-fugitive',{
+call dein#add( 'tpope/vim-fugitive', {
   \ 'lazy': 1,
-  \ 'on_cmd': ['G', 'Git', 'Git', 'Gwrite', 'Gread', 'Gdiffsplit']
+  \ 'on_event': 'BufReadPre'
   \ })
+" \ 'on_cmd': ['G', 'Git', 'Git', 'Gwrite', 'Gread', 'Gdiffsplit']
 call dein#add( 'tpope/vim-commentary', {
   \ 'lazy': 1,
-  \ 'on_map': 'gc'
+  \ 'on_event': 'BufReadPost'
   \ })
+" \ 'on_map': 'gc'
 call dein#add( 'airblade/vim-gitgutter', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
@@ -85,8 +96,7 @@ call dein#add( 'ludovicchabant/vim-gutentags', {
   \ })
 call dein#add( 'yianwillis/vimcdoc', {
   \ 'lazy': 1,
-  \ 'on_cmd': 'help',
-  \ 'on_map': 'K'
+  \ 'on_event': 'BufReadPre'
   \ })
 call dein#add( 'gcmt/wildfire.vim', {
   \ 'lazy': 1,
@@ -109,10 +119,6 @@ call dein#add( 'RRethy/vim-illuminate', {
 call dein#add( 'dhruvasagar/vim-table-mode', {
   \ 'lazy': 1,
   \ 'on_cmd': 'TableModeEnable',
-  \ 'on_ft': 'markdown'
-  \ })
-call dein#add( 'mzlogin/vim-markdown-toc', {
-  \ 'lazy': 1,
   \ 'on_ft': 'markdown'
   \ })
 call dein#add( 'dkarter/bullets.vim', {
@@ -164,7 +170,6 @@ call dein#add( 'iamcco/markdown-preview.nvim', {
   \ 'hook_post_update': 'call mkdp#util#install()'
   \ })
 
-if has('nvim-0.4') || v:version >=# 802
 call dein#add( 'voldikss/vim-floaterm', {
   \ 'if': "has('nvim-0.4') || v:version >=# 802",
   \ 'lazy': 1,
@@ -176,9 +181,7 @@ call dein#add( 'voldikss/LeaderF-floaterm', {
   \ 'on_cmd': 'Leaderf floaterm',
   \ 'on_source':['vim-floaterm', 'LeaderF'],
   \ })
-endif
 
-if has('python3') && (has('nvim') || has('patch-7.4.330'))
 call dein#add( 'Yggdroot/LeaderF', {
   \ 'if': "has('python3')",
   \ 'lazy': 1,
@@ -191,16 +194,18 @@ call dein#add( 'Yggdroot/LeaderF-marks', {
   \ 'on_cmd': 'LeaderfMarks',
   \ 'on_source': 'LeaderF'
   \ })
-endif
 
-if has('python3') && has('nvim')
 call dein#add( 'numirias/semshi', {
   \ 'if': "has('python3') && has('nvim')",
   \ 'lazy': 1,
   \ 'on_ft': 'python',
   \ 'hook_post_update': 'UpdateRemotePlugins'
   \ })
-endif
+
+call dein#local("C:/disk_2/vim-session-manager", {'frozen': 1, 'merged': 0})
+call dein#local("C:/disk_2/vim-smart-hlsearch", {'frozen': 1, 'merged': 0})
+source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
+source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 
 " call dein#add( 'haya14busa/incsearch.vim')
 " call dein#add( 'kana/vim-textobj-user')
@@ -216,12 +221,46 @@ call dein#end()
 if dein#check_install()
   call dein#install()
 endif
+" call dein#save_state()
 unlet s:dein_path
+" if !exists("g:plugs")
+"     " mode, buffer number, file path, preview window flag,
+"     " modified flag, read only flag
+"     set statusline=\ %{functions#GetMode()}\ \|\ [%n]\ %F\ %w\ %m\ %r
+"     if exists('g:loaded_vim_session_manager')
+"         set statusline+=\ %{SessionStatusLine()}
+"     endif
+"     set statusline+=%=
+"     " filetype, percentage, line number, total line numbers, column number
+"     set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
+" endif
 
+if dein#tap('lightline.vim')
+  let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ }
+endif
+
+call delete()
+if dein#tap('spaceline.vim')
+  let g:spaceline_diff_tool = 'git-gutter'
+  let g:spaceline_seperate_style = 'arrow-fade'
+  let g:spaceline_colorscheme = 'one'
+  " let g:spaceline_diagnostic_warnsign = 'X'
+endif
+
+if dein#tap('vim-buffet')
+  let g:buffet_show_index = 1
+  let g:buffet_use_devicons = 1
+  let g:buffet_powerline_separators = 1
+  let g:buffet_tab_icon = "\uf00a"
+  let g:buffet_left_trunc_icon = "\uf0a8"
+  let g:buffet_right_trunc_icon = "\uf0a9"
+endif
 
 if dein#tap('vim-easymotion')
-  let g:Easymotion_do_mapping       = 0
   " let g:Easymotion_use_upper = 1
+  let g:Easymotion_do_mapping       = 0
   let g:Easymotion_smartcase        = 1
   let g:Easymotion_smartsign_us     = 1
   let g:EasyMotion_space_jump_first = 1

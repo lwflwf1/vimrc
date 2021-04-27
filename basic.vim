@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-26 20:01:16
+" Last Modified: 2021-04-27 11:47:31
 " File:          basic.vim
 " License:       MIT
 
@@ -116,9 +116,7 @@ if has('gui_running')
     set guioptions-=e " Hide tab
 endif
 filetype plugin indent on
-set runtimepath+=C:/disk_2/vim-session-manager
-source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
-source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
+" set runtimepath+=C:/disk_2/vim-session-manager
 
 " set ambiwidth=double
 " set lazyredraw
@@ -170,17 +168,6 @@ unlet s:swap_dir
 unlet s:view_dir
 unlet s:dir_list
 
-if !exists("g:plugs")
-    " mode, buffer number, file path, preview window flag,
-    " modified flag, read only flag
-    set statusline=\ %{functions#GetMode()}\ \|\ [%n]\ %F\ %w\ %m\ %r
-    if exists('g:loaded_vim_session_manager')
-        set statusline+=\ %{SessionStatusLine()}
-    endif
-    set statusline+=%=
-    " filetype, percentage, line number, total line numbers, column number
-    set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
-endif
 
 execute "nohlsearch"
 
