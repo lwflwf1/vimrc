@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-27 11:47:31
+" Last Modified: 2021-04-27 19:48:53
 " File:          basic.vim
 " License:       MIT
 
@@ -89,8 +89,9 @@ set switchbuf=useopen
 set matchpairs+=<:>
 set winwidth=30
 set winminwidth=10
-set winheight=10
-set winminheight=2
+" winheight is not compatible with coc.nvim, must not set for now
+" set winheight=10
+" set winminheight=2
 set rtp+=C:/disk_1/fzf
 " set fillchars=eob:\ 
 let &fillchars='eob: '

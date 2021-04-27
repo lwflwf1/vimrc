@@ -2,3 +2,4 @@ tags
 .netrwhist
 *.old
 sessions/
+*.log

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-27 14:18:33
+" Last Modified: 2021-04-28 02:43:54
 " File:          plugin.vim
 " License:       MIT
 
@@ -10,21 +10,27 @@ let s:dein_path = g:dein_dir.'/repos/github.com/Shougo/dein.vim'
 let &runtimepath .= ','.s:dein_path
 let g:dein#install_max_processes = 12
 let g:dein#auto_recache = 1
-command! -nargs=* DeinUpdate call dein#update(<f-args>)
-command! -nargs=* DeinInstall call dein#install(<f-args>)
-command! -nargs=* DeinRecache call dein#recache_runtimepath(<f-args>)
-command! -nargs=0 DeinClean call map(dein#check_clean(), "delete(v:val, 'rf')")
+command! -nargs=* DeinUpdate     call dein#update(<f-args>)
+command! -nargs=* DeinInstall    call dein#install(<f-args>)
+command! -nargs=* DeinRecache    call dein#recache_runtimepath(<f-args>)
+command! -nargs=0 DeinClean      call map(dein#check_clean(), "delete(v:val, 'rf')")
+command! -nargs=0 DeinClearState call dein#clear_state()
+command! -nargs=0 DeinCheckClean execute 'echo dein#check_clean()'
 
+if dein#load_state(g:dein_dir)
 call dein#begin(g:dein_dir)
 
 call dein#add(s:dein_path)
 
 call dein#add('ajmwagar/vim-deus')
 call dein#add( 'joshdick/onedark.vim')
+" call dein#add('romgrk/doom-one.vim')
 call dein#add( 'ryanoasis/vim-devicons')
 " call dein#add( 'vim-airline/vim-airline')
 " call dein#add( 'vim-airline/vim-airline-themes')
 call dein#add('itchyny/lightline.vim')
+call dein#add('mengelbrecht/lightline-bufferline')
+" call dein#add('romgrk/barbar.nvim')
 " call dein#add('theniceboy/eleline.vim')
 " call dein#add('glepnir/spaceline.vim')
 " call dein#add('liuchengxu/eleline.vim')
@@ -204,8 +210,6 @@ call dein#add( 'numirias/semshi', {
 
 call dein#local("C:/disk_2/vim-session-manager", {'frozen': 1, 'merged': 0})
 call dein#local("C:/disk_2/vim-smart-hlsearch", {'frozen': 1, 'merged': 0})
-source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
-source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 
 " call dein#add( 'haya14busa/incsearch.vim')
 " call dein#add( 'kana/vim-textobj-user')
@@ -217,12 +221,16 @@ source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 " call dein#add( 'Linfee/ultisnips-zh-doc')
 " call dein#add( 'SirVer/ultisnips')
 " call dein#add( 'codota/tabnine-vim')
+
 call dein#end()
+call dein#save_state()
+endif
 if dein#check_install()
   call dein#install()
 endif
-" call dein#save_state()
 unlet s:dein_path
+source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
+source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 " if !exists("g:plugs")
 "     " mode, buffer number, file path, preview window flag,
 "     " modified flag, read only flag
@@ -236,9 +244,153 @@ unlet s:dein_path
 " endif
 
 if dein#tap('lightline.vim')
+  let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive']
+  function Gitinfo() abort
+    if index(s:special_filetypes, &ft) !=# -1
+      return ''
+    endif
+    let l:gitname = ''
+    let l:gitsummary = []
+    if exists('g:loaded_gitgutter') | let l:gitsummary = GitGutterGetHunkSummary() | endif
+    if exists('g:loaded_fugitive') | let l:gitname = FugitiveHead() | endif
+    if empty(l:gitname)
+      return ''
+    elseif empty(l:gitsummary)
+      return "\ue0a0 ".l:gitname
+    elseif winwidth(0) > 70
+      return "\ue0a0 ".l:gitname.': '.printf('+%d ~%d -%d', l:gitsummary[0], l:gitsummary[1], l:gitsummary[2])
+    else
+      return printf('+%d ~%d -%d', l:gitsummary[0], l:gitsummary[1], l:gitsummary[2])
+    endif
+  endfunction
+
+  function MyLightlineFileType() abort
+    return index(s:special_filetypes, &ft) !=# -1 || &ft ==# ''? '' : WebDevIconsGetFileTypeSymbol().' '.&ft
+  endfunction
+
+  function MyLightlineReadonly() abort
+    if index(s:special_filetypes, &ft) !=# -1
+      return ''
+    endif
+    if &readonly
+      return 'RO'
+    else
+      return ''
+    endif
+  endfunction
+
+  function MyLightlineMode() abort
+    return index(s:special_filetypes, &ft) !=# -1 ?  &ft : lightline#mode()
+  endfunction
+
+  function MyLightlineFilename() abort
+    if index(s:special_filetypes, &ft) !=# -1
+      return ''
+    endif
+    let l:filename = expand('%:t')
+    let l:modified = &modified ? ' +' : ''
+    return l:filename.l:modified
+  endfunction
+
+  function MyLightlineSession() abort
+    if exists('g:loaded_vim_session_manager') && winwidth(0) > 90
+      return SessionStatusLine()
+    endif
+    return ''
+  endfunction
+
+  function MyLightlineFileformat() abort
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 110
+      return ''
+    endif
+    return &fileformat
+  endfunction
+
+  function MyLightlineFileencoding() abort
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 100
+      return ''
+    endif
+    return &fileencoding
+  endfunction
+
+  function MyLightlineInactiveMode() abort
+    if index(s:special_filetypes, &ft) !=# -1
+      return &ft
+    endif
+    return expand('%:t')
+  endfunction
+
+  function! MyLightlineCocStatus()
+    let info = get(b:, 'coc_diagnostic_info', {})
+    let msgs = []
+    if get(info, 'error', 0)
+      call add(msgs, "\uf467 " . info['error'])
+    endif
+    if get(info, 'warning', 0)
+      call add(msgs, "\uf071 " . info['warning'])
+    endif
+    return trim(join(msgs, ' ') . ' ' . get(g:, 'coc_status', ''))
+  endfunction
+
+  " function! s:trim(str)
+  "   if exists('*trim')
+  "     return trim(a:str)
+  "   endif
+  "   return substitute(a:str, '\s\+$', '', '')
+  " endfunction
+
   let g:lightline = {
-    \ 'colorscheme': 'wombat',
+    \ 'colorscheme': 'one',
+    \ 'mode_map': {
+    \   'c': 'NORMAL',
+    \ },
+    \ 'component': {
+    \   'lineinfo': '%l/%L:%c%<',
+    \ },
+    \ 'component_function': {
+    \   'session'      : 'MyLightlineSession',
+    \   'git'          : 'Gitinfo',
+    \   'filename'     : 'MyLightlineFilename',
+    \   'mode'         : 'MyLightlineMode',
+    \   'filetype'     : 'MyLightlineFileType',
+    \   'readonly'     : 'MyLightlineReadonly',
+    \   'fileencoding' : 'MyLightlineFileencoding',
+    \   'fileformat'   : 'MyLightlineFileformat',
+    \   'inactivemode' : 'MyLightlineInactiveMode',
+    \   'cocstatus'    : 'MyLightlineCocStatus',
+    \ },
+    \ 'component_expand': {
+    \    'buffers': 'lightline#bufferline#buffers',
+    \ },
+    \ 'component_type': {
+    \   'buffers': 'tabsel',
+    \ },
+    \ 'tabline': {
+    \   'left': [['buffers']],
+    \   'right': [['close']],
     \ }
+    \ }
+
+  let g:lightline.active = {
+    \ 'left': [['mode', 'paste'],
+    \          ['readonly', 'git', 'filename', 'session', 'cocstatus',]],
+    \ 'right': [['percent'],
+    \           ['lineinfo'],
+    \           ['spell', 'filetype', 'fileencoding', 'fileformat']]
+    \ }
+
+  let g:lightline.inactive = {
+    \ 'left': [['inactivemode']],
+    \ 'right': [['percent'],
+    \           ['lineinfo']],
+    \ }
+endif
+
+if dein#tap('lightline-bufferline')
+    let g:lightline#bufferline#enable_devicons = 1
+    let g:lightline#bufferline#unicode_symbols = 1
+    let g:lightline#bufferline#show_number = 1
+    " let g:lightline.component_raw = {'buffers': 1}
 endif
 
 if dein#tap('spaceline.vim')
