@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-28 03:18:56
+" Last Modified: 2021-04-28 16:10:58
 " File:          plugin.vim
 " License:       MIT
 
@@ -15,8 +15,17 @@ command! -nargs=* DeinInstall    call dein#install(<f-args>)
 command! -nargs=* DeinRecache    call dein#recache_runtimepath(<f-args>)
 command! -nargs=0 DeinClean      call map(dein#check_clean(), "delete(v:val, 'rf')")
 command! -nargs=0 DeinClearState call dein#clear_state()
-command! -nargs=0 DeinCheckClean execute 'echomsg '.(!empty(dein#check_clean()) ? "'Unused plugins: '".dein#check_clean() : "'No unused plugin'")
+command! -nargs=0 DeinCheckClean call <SID>dein_check_clean()
 command! -nargs=0 DeinList       call <SID>dein_list()
+
+function s:dein_check_clean() abort
+  if empty(dein#check_clean()) | echomsg 'No unused plugin' | return '' | endif
+  echomsg 'Unused plugins:'
+  for plugin in dein#check_clean()
+    echomsg fnamemodify(plugin, ':t')
+  endfor
+endfunction
+
 function s:dein_list() abort
   echomsg '[dein] S: sourced, X: not installed'
   for [name, plugin] in items(dein#get())
@@ -257,7 +266,37 @@ source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
 " endif
 
 if dein#tap('lightline.vim')
-  let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive']
+  let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf']
+  let s:lightline_nerd_font_enable = 1
+  let s:nerd_font_icons = {
+    \ 'git': "\ue725",
+    \ 'modified': "\uf040",
+    \ 'readonly': "\uf456",
+    \ 'session': "\ue774",
+    \ 'gitadd': "\uf457",
+    \ 'gitdelete': "\uf458",
+    \ 'gitmodified': "\uf459",
+    \ 'error': "\uf467",
+    \ 'warning': "\uf071",
+    \ }
+    " \ 'session': "\ue246",
+  let s:normal_icons = {
+    \ 'git': "Git:",
+    \ 'modified': "+",
+    \ 'readonly': "RO",
+    \ 'session': "S:",
+    \ 'gitadd': "+",
+    \ 'gitdelete': "-",
+    \ 'gitmodified': "~",
+    \ 'error': "X",
+    \ 'warning': "!",
+    \ }
+  if s:lightline_nerd_font_enable ==# 1
+    let s:icons = s:nerd_font_icons
+  else
+    let s:icons = s:normal_icons
+  endif
+
   function Gitinfo() abort
     if index(s:special_filetypes, &ft) !=# -1
       return ''
@@ -269,11 +308,11 @@ if dein#tap('lightline.vim')
     if empty(l:gitname)
       return ''
     elseif empty(l:gitsummary)
-      return "\ue0a0 ".l:gitname
+      return s:icons['git'].' '.l:gitname
     elseif winwidth(0) > 70
-      return "\ue0a0 ".l:gitname.': '.printf('+%d ~%d -%d', l:gitsummary[0], l:gitsummary[1], l:gitsummary[2])
+      return join([s:icons['git'], l:gitname, s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
     else
-      return printf('+%d ~%d -%d', l:gitsummary[0], l:gitsummary[1], l:gitsummary[2])
+      return join([s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
     endif
   endfunction
 
@@ -282,14 +321,10 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineReadonly() abort
-    if index(s:special_filetypes, &ft) !=# -1
+    if index(s:special_filetypes, &ft) !=# -1 || !&readonly
       return ''
     endif
-    if &readonly
-      return 'RO'
-    else
-      return ''
-    endif
+    return s:icons['readonly']
   endfunction
 
   function MyLightlineMode() abort
@@ -301,13 +336,13 @@ if dein#tap('lightline.vim')
       return ''
     endif
     let l:filename = expand('%:t')
-    let l:modified = &modified ? ' +' : ''
+    let l:modified = &modified ? ' '.s:icons['modified']: ''
     return l:filename.l:modified
   endfunction
 
   function MyLightlineSession() abort
-    if exists('g:loaded_vim_session_manager') && winwidth(0) > 90
-      return SessionStatusLine()
+    if exists('g:loaded_vim_session_manager') && winwidth(0) > 90 && !empty(SessionStatusLine())
+      return s:icons['session'].' '.SessionStatusLine()
     endif
     return ''
   endfunction
@@ -337,10 +372,10 @@ if dein#tap('lightline.vim')
     let info = get(b:, 'coc_diagnostic_info', {})
     let msgs = []
     if get(info, 'error', 0)
-      call add(msgs, "\uf467 " . info['error'])
+      call add(msgs, s:icons['error'].' '.info['error'])
     endif
     if get(info, 'warning', 0)
-      call add(msgs, "\uf071 " . info['warning'])
+      call add(msgs, s:icons['warning'].' '.info['warning'])
     endif
     return trim(join(msgs, ' ') . ' ' . get(g:, 'coc_status', ''))
   endfunction
@@ -401,9 +436,11 @@ endif
 
 if dein#tap('lightline-bufferline')
     let g:lightline#bufferline#enable_devicons = 1
-    let g:lightline#bufferline#unicode_symbols = 1
     let g:lightline#bufferline#show_number = 1
+    let g:lightline#bufferline#read_only = ' '.s:icons['readonly']
+    let g:lightline#bufferline#modified = ' '.s:icons['modified']
     " let g:lightline.component_raw = {'buffers': 1}
+    " let g:lightline#bufferline#unicode_symbols = 1
 endif
 
 if dein#tap('spaceline.vim')

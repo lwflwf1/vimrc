@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-27 19:48:53
+" Last Modified: 2021-04-28 16:26:27
 " File:          basic.vim
 " License:       MIT
 
@@ -70,7 +70,6 @@ set concealcursor="nc"
 set backspace=indent,eol,start
 set nrformats=bin,hex,alpha
 set sessionoptions-=blank
-set sessionoptions-=help
 set sessionoptions-=options
 set sessionoptions+=unix
 set timeout
@@ -92,10 +91,7 @@ set winminwidth=10
 " winheight is not compatible with coc.nvim, must not set for now
 " set winheight=10
 " set winminheight=2
-set rtp+=C:/disk_1/fzf
-" set fillchars=eob:\ 
-let &fillchars='eob: '
-" set rtp+=C:/disk_1/Microsoft\ VS\ Code/resources/app/node_modules.asar.unpacked/vscode-ripgrep/bin/rg.exe
+set fillchars=eob:\ 
 if executable('rg')
     set grepformat=%f:%l:%m
     let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
@@ -168,7 +164,6 @@ unlet s:undo_dir
 unlet s:swap_dir
 unlet s:view_dir
 unlet s:dir_list
-
 
 execute "nohlsearch"
 

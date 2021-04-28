@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:52:14
-" Last Modified: 2021-04-26 14:06:23
+" Last Modified: 2021-04-28 16:25:49
 " File:          config.vim
 " License:       MIT
 
@@ -24,3 +24,4 @@ else
 endif
 
 let g:dein_dir = 'C:/Users/79941/AppData/Local/nvim-data/dein'
+set rtp+=C:/disk_1/fzf
