@@ -55,23 +55,26 @@
 
     "explorer.openAction.strategy": "select",
     "explorer.width": 40,
-    "explorer.file.autoReveal": true,
-    "explorer.quitOnOpen": true,
+    "explorer.quitOnOpen": false,
     "explorer.sources": [
     {
             "name": "buffer",
-            "expand": false
+            "expand": true
         },
         {
             "name": "file",
             "expand": true
         }
     ],
-    "explorer.file.column.indent.indentLine": true,
+    "explorer.file.column.indent.indentLine": false,
     "explorer.file.showHiddenFiles": true,
     "explorer.icon.enableNerdfont": true,
     "explorer.file.root.template": "[icon & 1] FILE [root] [fullpath]",
     "explorer.buffer.root.template": "[icon & 1] BUFFER",
+    "explorer.buffer.tabOnly": false,
+    "explorer.git.icon.status.ignored": "I",
+    "explorer.git.icon.status.untracked": "u",
+    "explorer.file.revealWhenOpen": true,
 
     "snippets.ultisnips.enable": true,
     "snippets.userSnippetsDirectory": "C:/Users/79941/AppData/Local/nvim/Ultisnips",

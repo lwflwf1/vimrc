@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-28 16:10:58
+" Last Modified: 2021-04-28 23:36:57
 " File:          plugin.vim
 " License:       MIT
 
@@ -27,10 +27,12 @@ function s:dein_check_clean() abort
 endfunction
 
 function s:dein_list() abort
-  echomsg '[dein] S: sourced, X: not installed'
-  for [name, plugin] in items(dein#get())
+  echomsg '[dein] S: sourced; X: not installed'
+  let l:plugins = dein#get()
+  echomsg 'Total plugins: '.len(l:plugins)
+  for [name, plugin] in items(l:plugins)
     let prefix = ' '
-    if !isdirectory(plugin.path) 
+    if !isdirectory(plugin.path)
       let prefix = 'X'
     elseif plugin.sourced
       let prefix = 'S'
@@ -43,7 +45,6 @@ if dein#load_state(g:dein_dir)
 call dein#begin(g:dein_dir)
 
 call dein#add(s:dein_path)
-
 call dein#add('ajmwagar/vim-deus')
 call dein#add( 'joshdick/onedark.vim')
 " call dein#add('romgrk/doom-one.vim')
@@ -59,11 +60,14 @@ call dein#add('mengelbrecht/lightline-bufferline')
 " call dein#add('bagrat/vim-buffet')
 call dein#add( 'tpope/vim-repeat')
 call dein#add( 'mzlogin/vim-markdown-toc')
+call dein#add( 'yianwillis/vimcdoc')
+
 " coc.nvim requires node 10.12+
 call dein#add( 'neoclide/coc.nvim', {
   \ 'if': "has('nvim-0.3.2') || has('patch-8.0.1453')",
   \ 'rev': 'release',
   \ })
+
 " vista.vim requires neovim or vim 8.0.27+ if you want ctags to run asynchonously
 " vista.vim requires fzf 0.22+ if you want to use fzf
 " vista.vim only support universal-ctags
@@ -72,120 +76,140 @@ call dein#add( 'liuchengxu/vista.vim', {
   \ 'on_cmd': ['Vista', 'Vista!', 'Vista!!'],
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'skywind3000/vim-dict', {
   \ 'lazy': 1,
   \ 'on_event': 'InsertEnter'
   \ })
+
 call dein#add( 'easymotion/vim-easymotion', {
   \ 'lazy': 1,
   \ 'on_map': '<Plug>(easymotion'
   \ })
+
 call dein#add( 'justinmk/vim-sneak', {
   \ 'lazy': 1,
   \ 'on_map': '<Plug>Sneak'
   \ })
+
 call dein#add( 'sheerun/vim-polyglot', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'tpope/vim-surround', {
   \ 'lazy': 1,
   \ 'on_map': {'n': ['cs', 'ds', 'ys', 'cS', 'yS'], 'v': ['S', 'gS']}
   \ })
+
 call dein#add( 'tpope/vim-fugitive', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
 " \ 'on_cmd': ['G', 'Git', 'Git', 'Gwrite', 'Gread', 'Gdiffsplit']
+
 call dein#add( 'tpope/vim-commentary', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPost'
   \ })
 " \ 'on_map': 'gc'
+
 call dein#add( 'airblade/vim-gitgutter', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'AndrewRadev/switch.vim', {
   \ 'lazy': 1,
   \ 'on_cmd': 'Switch'
   \ })
+
 call dein#add( 'Yggdroot/indentLine', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'vhda/verilog_systemverilog.vim', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'ludovicchabant/vim-gutentags', {
   \ 'lazy':1,
   \ 'on_event': 'BufReadPost'
   \ })
-call dein#add( 'yianwillis/vimcdoc', {
-  \ 'lazy': 1,
-  \ 'on_event': 'BufReadPre'
-  \ })
+
 call dein#add( 'gcmt/wildfire.vim', {
   \ 'lazy': 1,
   \ 'on_map': {'n': '<Plug>(wildfire-fuel)', 'v': '<Plug>(wildfire-water)'}
   \ })
+
 call dein#add( 'mg979/vim-visual-multi', {
   \ 'lazy': 1,
   \ 'on_map': ['<c-j>', '<c-k>', '<c-n>'],
   \ 'on_source': 'vim-surround',
   \ 'rev': 'master'
   \ })
+
 call dein#add( 'honza/vim-snippets', {
   \ 'lazy': 1,
   \ 'on_event': 'InsertEnter'
   \ })
+
 call dein#add( 'RRethy/vim-illuminate', {
   \ 'lazy': 1,
   \ 'on_event': 'BufReadPre'
   \ })
+
 call dein#add( 'dhruvasagar/vim-table-mode', {
   \ 'lazy': 1,
   \ 'on_cmd': 'TableModeEnable',
   \ 'on_ft': 'markdown'
   \ })
+
 call dein#add( 'dkarter/bullets.vim', {
   \ 'lazy': 1,
   \ 'on_ft': ['markdown', 'text']
   \ })
+
 call dein#add( 'svermeulen/vim-subversive', {
   \ 'lazy': 1,
   \ 'on_map': '<plug>(SubversiveSubstitute'
   \ })
+
 call dein#add( 'brooth/far.vim', {
   \ 'lazy': 1,
   \ 'on_cmd': 'Far'
   \ })
+
 call dein#add( 'junegunn/vim-easy-align', {
   \ 'lazy': 1,
   \ 'on_map': '<plug>(EasyAlign)'
   \ })
+
 call dein#add( 'liuchengxu/vim-which-key', {
   \ 'lazy': 1,
   \ 'on_map': ['WhichKey', 'WhichKey!']
   \ })
+
 call dein#add( 'mbbill/undotree', {
   \ 'lazy': 1,
   \ 'on_cmd': 'UndotreeToggle'
   \ })
+
 call dein#add( 'skywind3000/asyncrun.vim', {
   \ 'if': "has('nvim') || v:version >=# 800",
   \ 'lazy': 1,
   \ 'on_cmd': 'AsyncRun',
   \ })
+
 call dein#add( 'skywind3000/asynctasks.vim', {
-  \ 'if': "has('nvim') || v:version >=# 800",
   \ 'lazy': 1,
   \ 'on_cmd': ['AsyncTask', 'AsyncTaskList', 'AsyncTaskEdit'],
   \ 'on_source': 'asyncrun.vim'
   \ })
+
 call dein#add( 'skywind3000/asyncrun.extra', {
-  \ 'if': "has('nvim') || v:version >=# 800",
   \ 'lazy': 1,
   \ 'on_cmd': 'AsyncRun',
   \ 'on_source': 'asyncrun.vim'
@@ -203,6 +227,7 @@ call dein#add( 'voldikss/vim-floaterm', {
   \ 'lazy': 1,
   \ 'on_cmd': ['FloatermNew', 'FloatermToggle', 'FloatermSend']
   \ })
+
 call dein#add( 'voldikss/LeaderF-floaterm', {
   \ 'if': "has('nvim-0.4') || v:version >=# 802",
   \ 'lazy': 1,
@@ -216,6 +241,7 @@ call dein#add( 'Yggdroot/LeaderF', {
   \ 'on_map': '<leaderf>f',
   \ 'hook_post_update': 'LeaderfInstallCExtension'
   \ })
+
 call dein#add( 'Yggdroot/LeaderF-marks', {
   \ 'if': "has('python3')",
   \ 'lazy': 1,
@@ -230,14 +256,13 @@ call dein#add( 'numirias/semshi', {
   \ 'hook_post_update': 'UpdateRemotePlugins'
   \ })
 
-call dein#local("C:/disk_2/vim-session-manager", {'frozen': 1, 'merged': 0})
-call dein#local("C:/disk_2/vim-smart-hlsearch", {'frozen': 1, 'merged': 0})
+call dein#local("C:/disk_2/vim-plugin", {
+  \ 'frozen': 1,
+  \ 'merged': 0,
+  \ })
 
 " call dein#add( 'haya14busa/incsearch.vim')
 " call dein#add( 'kana/vim-textobj-user')
-" call dein#add( 'preservim/nerdtree')
-" call dein#add( 'Xuyuanp/nerdtree-git-plugin')
-" call dein#add( 'tiagofumo/vim-nerdtree-syntax-highlight')
 " call dein#add( 'skywind3000/vim-terminal-help')
 " call dein#add( 'skywind3000/vim-auto-popmenu')
 " call dein#add( 'Linfee/ultisnips-zh-doc')
@@ -251,8 +276,7 @@ if dein#check_install()
   call dein#install()
 endif
 unlet s:dein_path
-source c:/disk_2/vim-session-manager/plugin/vim-session-manager.vim
-source c:/disk_2/vim-smart-hlsearch/plugin/vim-smart-hlsearch.vim
+
 " if !exists("g:plugs")
 "     " mode, buffer number, file path, preview window flag,
 "     " modified flag, read only flag
@@ -269,27 +293,26 @@ if dein#tap('lightline.vim')
   let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf']
   let s:lightline_nerd_font_enable = 1
   let s:nerd_font_icons = {
-    \ 'git': "\ue725",
-    \ 'modified': "\uf040",
-    \ 'readonly': "\uf456",
-    \ 'session': "\ue774",
-    \ 'gitadd': "\uf457",
-    \ 'gitdelete': "\uf458",
-    \ 'gitmodified': "\uf459",
-    \ 'error': "\uf467",
-    \ 'warning': "\uf071",
+    \ 'git'         : "\ue725",
+    \ 'modified'    : "\uf040",
+    \ 'readonly'    : "\uf456",
+    \ 'session'     : "\ue774",
+    \ 'gitadd'      : "\uf457",
+    \ 'gitdelete'   : "\uf458",
+    \ 'gitmodified' : "\uf459",
+    \ 'error'       : "\uf467",
+    \ 'warning'     : "\uf071",
     \ }
-    " \ 'session': "\ue246",
   let s:normal_icons = {
-    \ 'git': "Git:",
-    \ 'modified': "+",
-    \ 'readonly': "RO",
-    \ 'session': "S:",
-    \ 'gitadd': "+",
-    \ 'gitdelete': "-",
-    \ 'gitmodified': "~",
-    \ 'error': "X",
-    \ 'warning': "!",
+    \ 'git'         : "Git:",
+    \ 'modified'    : "+",
+    \ 'readonly'    : "RO",
+    \ 'session'     : "S:",
+    \ 'gitadd'      : "+",
+    \ 'gitdelete'   : "-",
+    \ 'gitmodified' : "~",
+    \ 'error'       : "X",
+    \ 'warning'     : "!",
     \ }
   if s:lightline_nerd_font_enable ==# 1
     let s:icons = s:nerd_font_icons
@@ -309,7 +332,7 @@ if dein#tap('lightline.vim')
       return ''
     elseif empty(l:gitsummary)
       return s:icons['git'].' '.l:gitname
-    elseif winwidth(0) > 70
+    elseif winwidth(0) > 80
       return join([s:icons['git'], l:gitname, s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
     else
       return join([s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
@@ -341,21 +364,21 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineSession() abort
-    if exists('g:loaded_vim_session_manager') && winwidth(0) > 90 && !empty(SessionStatusLine())
+    if exists('g:loaded_vim_session_manager') && winwidth(0) > 70 && !empty(SessionStatusLine())
       return s:icons['session'].' '.SessionStatusLine()
     endif
     return ''
   endfunction
 
   function MyLightlineFileformat() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 110
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 105
       return ''
     endif
     return &fileformat
   endfunction
 
   function MyLightlineFileencoding() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 100
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 95
       return ''
     endif
     return &fileencoding
@@ -422,15 +445,15 @@ if dein#tap('lightline.vim')
   let g:lightline.active = {
     \ 'left': [['mode', 'paste'],
     \          ['readonly', 'git', 'filename', 'session', 'cocstatus',]],
-    \ 'right': [['percent'],
-    \           ['lineinfo'],
+    \ 'right': [['lineinfo'],
+    \           ['percent'],
     \           ['spell', 'filetype', 'fileencoding', 'fileformat']]
     \ }
 
   let g:lightline.inactive = {
     \ 'left': [['inactivemode']],
-    \ 'right': [['percent'],
-    \           ['lineinfo']],
+    \ 'right': [['lineinfo'],
+    \           ['percent']],
     \ }
 endif
 
@@ -439,7 +462,8 @@ if dein#tap('lightline-bufferline')
     let g:lightline#bufferline#show_number = 1
     let g:lightline#bufferline#read_only = ' '.s:icons['readonly']
     let g:lightline#bufferline#modified = ' '.s:icons['modified']
-    " let g:lightline.component_raw = {'buffers': 1}
+    let g:lightline#bufferline#clickable = 1
+    let g:lightline.component_raw = {'buffers': 1}
     " let g:lightline#bufferline#unicode_symbols = 1
 endif
 
@@ -642,12 +666,10 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-"coc-explorer needs >= vim 8.1.1418 or >= neovim 0.3.1
 let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-vimlsp',
   \ 'coc-pyright',
-  \ 'coc-explorer',
   \ 'coc-pairs',
   \ 'coc-highlight',
   \ 'coc-sh',
@@ -659,6 +681,10 @@ let g:coc_global_extensions = [
   \ 'coc-tabnine',
   \ 'coc-tasks',
   \ ]
+
+  if has('nvim-0.3.1') || has('patch-8.1.1418')
+    let g:coc_global_extensions += ['coc-explorer']
+  endif
 
 endif
 
