@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-04-29 14:53:21
+" Last Modified: 2021-04-29 17:55:57
 " File:          keymap.vim
 " License:       MIT
 
@@ -30,6 +30,16 @@ nnoremap > >>_
 
 nnoremap Y y$
 
+noremap <c-f> <c-f>zz
+noremap <c-b> <c-b>zz
+noremap <c-u> <c-u>zz
+noremap <c-d> <c-d>zz
+noremap <c-e> 3<c-e>
+noremap <c-y> 3<c-y>
+
+nnoremap <expr> zz (winline() == &scrolloff + 1) ? 'zb'
+            \ : (winline() == winheight(0) - &scrolloff) ? 'zt' : 'zz'
+
 " nnoremap <expr> ; getcharsearch().forward ? ';' : ','
 " nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
@@ -46,11 +56,11 @@ inoremap <silent> <m-p> <esc>:<c-u>move .-2<cr>==gi
 vnoremap <silent> <m-n> :<c-u>move '>+1<cr>gv=gv
 vnoremap <silent> <m-p> :<c-u>move '<-2<cr>gv=gv
 
-nnoremap <silent> tn :<c-u>tabnew<CR>
-nnoremap <silent> tu :<c-u>enew<CR>
-nnoremap <silent> <C-h> :<c-u>call functions#MoveTabOrBuf(0)<CR>
-nnoremap <silent> <C-l> :<c-u>call functions#MoveTabOrBuf(1)<CR>
-nnoremap <silent> <m-q> :<c-u>bd<CR>
+nnoremap <silent> tn    : <c-u>tabnew<CR>
+nnoremap <silent> tu    : <c-u>enew<CR>
+nnoremap <silent> <C-h> : <c-u>call functions#MoveTabOrBuf(0)<CR>
+nnoremap <silent> <C-l> : <c-u>call functions#MoveTabOrBuf(1)<CR>
+nnoremap <silent> <m-q> : <c-u>bd<CR>
 nnoremap <leader>wo <c-w>o
 nnoremap <leader>wr <c-w>R
 nnoremap <leader>wx <c-w>x
@@ -66,24 +76,15 @@ nnoremap <leader>h <c-w>H
 nnoremap <leader>l <c-w>L
 nnoremap <leader>j <c-w>J
 nnoremap <leader>k <c-w>K
-nnoremap <silent> <up> :<c-u>resize +5<CR>
-nnoremap <silent> <down> :<c-u>resize -5<CR>
-nnoremap <silent> <left> :<c-u>vertical resize -5<CR>
-nnoremap <silent> <right> :<c-u>vertical resize +5<CR>
-nnoremap <silent> <leader>qn :<c-u>cnext<cr>
-nnoremap <silent> <leader>qp :<c-u>cprevious<cr>
+nnoremap <silent> <up>       : <c-u>resize +5<CR>
+nnoremap <silent> <down>     : <c-u>resize -5<CR>
+nnoremap <silent> <left>     : <c-u>vertical resize -5<CR>
+nnoremap <silent> <right>    : <c-u>vertical resize +5<CR>
+nnoremap <silent> <leader>qn : <c-u>cnext<cr>
+nnoremap <silent> <leader>qp : <c-u>cprevious<cr>
 
 nnoremap <silent> - :<c-u>bprevious<cr>
 nnoremap <silent> = :<c-u>bnext<cr>
-
-" nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
-"     \ 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
-" noremap <expr> <C-f> max([winheight(0) - 2, 1])
-"     \ ."\<C-d>".(line('w$') >= line('$') ? "L" : "H")
-" noremap <expr> <C-b> max([winheight(0) - 2, 1])
-"     \ ."\<C-u>".(line('w0') <= 1 ? "H" : "L")
-" noremap <expr> <C-e> (line("w$") >= line('$') ? "j" : "3\<C-e>")
-" noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
 inoremap <silent> <c-k> <c-r>=functions#ToggleCaseInInsertMode()<cr>
 
@@ -118,16 +119,20 @@ tnoremap <C-l> <right>
 tnoremap <m-h> <C-left>
 tnoremap <m-l> <C-right>
 
-onoremap <silent> in( :<c-u>silent execute("normal! /(\r:nohlsearch\rvi(")<cr>
-onoremap <silent> il( :<c-u>silent execute("normal! ?(\r:nohlsearch\rvi(")<cr>
-onoremap <silent> in[ :<c-u>silent execute("normal! /[\r:nohlsearch\rvi[")<cr>
-onoremap <silent> il[ :<c-u>silent execute("normal! ?[\r:nohlsearch\rvi[")<cr>
-onoremap <silent> in{ :<c-u>silent execute("normal! /{\r:nohlsearch\rvi{")<cr>
-onoremap <silent> il{ :<c-u>silent execute("normal! ?{\r:nohlsearch\rvi{")<cr>
-onoremap <silent> in" :<c-u>silent execute("normal! /\"\r:nohlsearch\rvi\"")<cr>
-onoremap <silent> il" :<c-u>silent execute("normal! ?\"\r:nohlsearch\rvi\"")<cr>
-onoremap <silent> in' :<c-u>silent execute("normal! /'\r:nohlsearch\rvi'")<cr>
-onoremap <silent> il' :<c-u>silent execute("normal! ?'\r:nohlsearch\rvi'")<cr>
+onoremap <silent> inb :<c-u>silent execute "normal! /(\r:nohlsearch\rvi("<cr>
+onoremap <silent> ilb :<c-u>silent execute "normal! ?(\r:nohlsearch\rvi("<cr>
+onoremap <silent> in[ :<c-u>silent execute "normal! /[\r:nohlsearch\rvi["<cr>
+onoremap <silent> il[ :<c-u>silent execute "normal! ?[\r:nohlsearch\rvi["<cr>
+onoremap <silent> in] :<c-u>silent execute "normal! /[\r:nohlsearch\rvi["<cr>
+onoremap <silent> il] :<c-u>silent execute "normal! ?[\r:nohlsearch\rvi["<cr>
+onoremap <silent> in{ :<c-u>silent execute "normal! /{\r:nohlsearch\rvi{"<cr>
+onoremap <silent> il{ :<c-u>silent execute "normal! ?{\r:nohlsearch\rvi{"<cr>
+onoremap <silent> in} :<c-u>silent execute "normal! /{\r:nohlsearch\rvi{"<cr>
+onoremap <silent> il} :<c-u>silent execute "normal! ?{\r:nohlsearch\rvi{"<cr>
+onoremap <silent> in" :<c-u>silent execute "normal! /\"\r:nohlsearch\rvi\""<cr>
+onoremap <silent> il" :<c-u>silent execute "normal! ?\"\r:nohlsearch\rvi\""<cr>
+onoremap <silent> in' :<c-u>silent execute "normal! /'\r:nohlsearch\rvi'"<cr>
+onoremap <silent> il' :<c-u>silent execute "normal! ?'\r:nohlsearch\rvi'"<cr>
 
 " find placeholder <++> and insert
 nnoremap <silent> <m-i> /<++><CR>:nohlsearch<CR>c4l
@@ -137,8 +142,3 @@ augroup q_on_help_group
     autocmd!
     autocmd FileType help nnoremap <silent> <buffer> q :bwipeout!<cr>
 augroup END
-
-" nnoremap <silent> <leader>n :silent execute "normal! :grep! -F <cword>\r:copen\r"<cr>
-if !exists("g:plugs")
-    " nnoremap <silent> <leader>g :silent execute "normal! :vimgrep /".expand("<cword>")."/j ./*\r:copen\r"<cr>
-endif

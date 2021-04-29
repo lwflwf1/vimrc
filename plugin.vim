@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-29 15:20:51
+" Last Modified: 2021-04-29 18:53:07
 " File:          plugin.vim
 " License:       MIT
 
@@ -40,6 +40,30 @@ function s:dein_list() abort
     echomsg prefix name
   endfor
 endfunction
+
+" Disable vim distribution plugins
+" let g:loaded_gzip = 1
+" let g:loaded_tar = 1
+" let g:loaded_tarPlugin = 1
+" let g:loaded_zip = 1
+" let g:loaded_zipPlugin = 1
+
+" let g:loaded_getscript = 1
+" let g:loaded_getscriptPlugin = 1
+" let g:loaded_vimball = 1
+" let g:loaded_vimballPlugin = 1
+
+" " let g:loaded_matchit = 1
+" " let g:loaded_matchparen = 1
+" let g:loaded_2html_plugin = 1
+" let g:loaded_logiPat = 1
+" let g:loaded_rrhelper = 1
+
+" let g:loaded_netrw = 1
+" let g:loaded_netrwPlugin = 1
+" let g:loaded_netrwSettings = 1
+" let g:loaded_netrwFileHandlers = 1
+" let g:loaded_netrwPlugin = 1
 
 if dein#load_state(g:dein_dir)
 call dein#begin(g:dein_dir)
@@ -259,8 +283,16 @@ call dein#add( 'numirias/semshi', {
 call dein#local("C:/disk_2/vim-plugin", {
   \ 'frozen': 1,
   \ 'merged': 0,
-  \ })
+  \ 'lazy': 1,
+  \ 'on_cmd': ['SessionList', 'SessionSave', 'SessionLoad']
+  \ }, ['vim-session-manager'])
 
+call dein#local("C:/disk_2/vim-plugin", {
+  \ 'frozen': 1,
+  \ 'merged': 0,
+  \ 'lazy': 1,
+  \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#']
+  \ }, ['vim-smart-hlsearch'])
 " call dein#add( 'haya14busa/incsearch.vim')
 " call dein#add( 'kana/vim-textobj-user')
 " call dein#add( 'skywind3000/vim-terminal-help')
@@ -573,12 +605,12 @@ endif
 
 if dein#tap('coc.nvim')
   if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>zz"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>zz"
     inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
     inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>zz"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>zz"
   endif
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -642,7 +674,21 @@ nnoremap <silent> <leader>tt :CocCommand translator.popup<CR>
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-nnoremap <leader>cs :CocSearch -S -w
+
+nnoremap <silent> <leader>cs :set operatorfunc=<sid>cocsearch<cr>g@
+vnoremap <silent> <leader>cs :<c-u>call <sid>cocsearch(visualmode())<cr>
+
+function s:cocsearch(type) abort
+  if a:type ==# 'char'
+    execute "normal! `[v`]y"
+    execute "CocSearch -F ".escape(@", ' \/')
+  elseif a:type ==# 'v'
+    execute "normal! `<v`>y"
+    execute "CocSearch -F ".escape(@", ' \/')
+  else
+    return
+  endif
+endfunction
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -702,6 +748,7 @@ nnoremap <silent> <leader>gu :GitGutterUndoHunk<cr>
 nnoremap <silent> <leader>gs :GitGutterStageHunk<cr>
 nnoremap <silent> <leader>gq :GitInQuickFix<cr>
 nnoremap <silent> <leader>gf :GitGutterFold<cr>
+nnoremap <silent> <leader>ga :GitGutterAll<cr>
 " omap ih <Plug>(GitGutterTextObjectInnerPending)
 
 " omap ah <Plug>(GitGutterTextObjectOuterPending)
