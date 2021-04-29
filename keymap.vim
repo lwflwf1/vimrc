@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-04-27 01:26:15
+" Last Modified: 2021-04-29 14:53:21
 " File:          keymap.vim
 " License:       MIT
 
@@ -29,6 +29,9 @@ nnoremap < <<_
 nnoremap > >>_
 
 nnoremap Y y$
+
+" nnoremap <expr> ; getcharsearch().forward ? ';' : ','
+" nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
 " nnoremap <silent> <c-down> :move .+1<cr>==
 " nnoremap <silent> <c-up> :move .-2<cr>==

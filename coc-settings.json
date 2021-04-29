@@ -75,6 +75,12 @@
     "explorer.git.icon.status.ignored": "I",
     "explorer.git.icon.status.untracked": "u",
     "explorer.file.revealWhenOpen": true,
+    "explorer.keyMappings.global": {
+        "x": "systemExcute",
+        "s": "gitStage",
+        "u": "gitUnstage",
+        "<space>s": ["wait", "reveal:select"]
+    },
 
     "snippets.ultisnips.enable": true,
     "snippets.userSnippetsDirectory": "C:/Users/79941/AppData/Local/nvim/Ultisnips",

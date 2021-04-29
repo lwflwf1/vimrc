@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-28 23:36:57
+" Last Modified: 2021-04-29 15:20:51
 " File:          plugin.vim
 " License:       MIT
 
@@ -141,7 +141,7 @@ call dein#add( 'ludovicchabant/vim-gutentags', {
 
 call dein#add( 'gcmt/wildfire.vim', {
   \ 'lazy': 1,
-  \ 'on_map': {'n': '<Plug>(wildfire-fuel)', 'v': '<Plug>(wildfire-water)'}
+  \ 'on_map': '<Plug>(wildfire-'
   \ })
 
 call dein#add( 'mg979/vim-visual-multi', {
@@ -289,6 +289,11 @@ unlet s:dein_path
 "     set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
 " endif
 
+if dein#tap('wildfire.vim')
+  map <cr> <Plug>(wildfire-fuel)
+  nmap <c-cr> <Plug>(wildfire-quick-select)
+endif
+
 if dein#tap('lightline.vim')
   let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf']
   let s:lightline_nerd_font_enable = 1
@@ -303,6 +308,7 @@ if dein#tap('lightline.vim')
     \ 'error'       : "\uf467",
     \ 'warning'     : "\uf071",
     \ }
+    " \ 'modified'    : "\uf444",
   let s:normal_icons = {
     \ 'git'         : "Git:",
     \ 'modified'    : "+",
@@ -321,9 +327,7 @@ if dein#tap('lightline.vim')
   endif
 
   function Gitinfo() abort
-    if index(s:special_filetypes, &ft) !=# -1
-      return ''
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 | return '' | endif
     let l:gitname = ''
     let l:gitsummary = []
     if exists('g:loaded_gitgutter') | let l:gitsummary = GitGutterGetHunkSummary() | endif
@@ -344,9 +348,7 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineReadonly() abort
-    if index(s:special_filetypes, &ft) !=# -1 || !&readonly
-      return ''
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 || !&readonly | return '' | endif
     return s:icons['readonly']
   endfunction
 
@@ -355,9 +357,7 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineFilename() abort
-    if index(s:special_filetypes, &ft) !=# -1
-      return ''
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 | return '' | endif
     let l:filename = expand('%:t')
     let l:modified = &modified ? ' '.s:icons['modified']: ''
     return l:filename.l:modified
@@ -371,35 +371,30 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineFileformat() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 105
-      return ''
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 105 | return '' | endif
     return &fileformat
   endfunction
 
   function MyLightlineFileencoding() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 95
-      return ''
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 95 | return '' | endif
     return &fileencoding
   endfunction
 
   function MyLightlineInactiveMode() abort
-    if index(s:special_filetypes, &ft) !=# -1
-      return &ft
-    endif
+    if index(s:special_filetypes, &ft) !=# -1 | return &ft | endif
     return expand('%:t')
   endfunction
 
   function! MyLightlineCocStatus()
+    if index(s:special_filetypes, &ft) !=# -1 | return '' | endif
     let info = get(b:, 'coc_diagnostic_info', {})
     let msgs = []
-    if get(info, 'error', 0)
-      call add(msgs, s:icons['error'].' '.info['error'])
-    endif
-    if get(info, 'warning', 0)
-      call add(msgs, s:icons['warning'].' '.info['warning'])
-    endif
+    " if get(info, 'error', 0)
+    call add(msgs, s:icons['error'].' '.get(info, 'error', 0))
+    " endif
+    " if get(info, 'warning', 0)
+    call add(msgs, s:icons['warning'].' '.get(info, 'warning', 0))
+    " endif
     return trim(join(msgs, ' ') . ' ' . get(g:, 'coc_status', ''))
   endfunction
 
@@ -459,7 +454,7 @@ endif
 
 if dein#tap('lightline-bufferline')
     let g:lightline#bufferline#enable_devicons = 1
-    let g:lightline#bufferline#show_number = 1
+    let g:lightline#bufferline#show_number = 2
     let g:lightline#bufferline#read_only = ' '.s:icons['readonly']
     let g:lightline#bufferline#modified = ' '.s:icons['modified']
     let g:lightline#bufferline#clickable = 1
@@ -647,7 +642,7 @@ nnoremap <silent> <leader>tt :CocCommand translator.popup<CR>
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-nnoremap <leader>cs :CocSearch -S -w 
+nnoremap <leader>cs :CocSearch -S -w
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -775,7 +770,7 @@ let g:Lf_WorkingDirectoryMode = 'AF'
 " endfunction
 
 let g:Lf_ShortcutF = "<leader>ff"
-nnoremap <leader>fF :LeaderfFile 
+nnoremap <leader>fF :LeaderfFile
 nnoremap <silent> <leader>fm :LeaderfMru<CR>
 nnoremap <silent> <leader>fu :LeaderfFunction<CR>
 " nnoremap <silent> <F12> :call <SID>leaderfFunctionToggle()<CR>
@@ -933,6 +928,9 @@ function! ExecuteFile()
         let cmd = 'bash "$(VIM_FILEPATH)"'
     elseif &ft == 'go'
         let cmd = 'go run "$(VIM_FILEPATH)"'
+    elseif &ft == 'vim'
+        exec 'source '.expand('%')
+        return
     elseif &ft == 'markdown'
         exec 'MarkdownPreviewToggle'
         return

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:52:14
-" Last Modified: 2021-04-28 16:25:49
+" Last Modified: 2021-04-29 02:43:04
 " File:          config.vim
 " License:       MIT
 
@@ -18,10 +18,41 @@ endif
 " let g:python_highlight_all = 1
 
 if has('win32') || has('win64')
-    let g:is_windows = 1
+    let g:os = 'windows'
+elseif has('unix')
+    let g:os = 'unix'
 else
-    let g:is_windows = 0
+    let g:os = 'macos'
 endif
 
 let g:dein_dir = 'C:/Users/79941/AppData/Local/nvim-data/dein'
 set rtp+=C:/disk_1/fzf
+
+" this saves startup time
+if g:os ==# 'windows'
+    let g:clipboard = {
+        \ 'name': 'win32yank',
+        \ 'copy': {
+        \ '+': 'win32yank.exe -i --crlf',
+        \ '*': 'win32yank.exe -i --crlf',
+        \ },
+        \ 'paste': {
+        \ '+': 'win32yank.exe -o --lf',
+        \ '*': 'win32yank.exe -o --lf',
+        \ },
+        \ 'cache_enabled': 0,
+        \ }
+elseif g:os ==# 'macos'
+    let g:clipboard = {
+        \ 'name': 'pbcopy',
+        \ 'copy': {
+        \    '+': 'pbcopy',
+        \    '*': 'pbcopy',
+        \  },
+        \ 'paste': {
+        \    '+': 'pbpaste',
+        \    '*': 'pbpaste',
+        \ },
+        \ 'cache_enabled': 0,
+        \ }
+endif

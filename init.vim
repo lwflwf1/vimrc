@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/
 " Created Time:  2021-04-21 17:13:59
-" Last Modified: 2021-04-26 01:19:42
+" Last Modified: 2021-04-29 02:42:58
 " File:          init.vim
 " License:       MIT
 
