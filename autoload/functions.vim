@@ -2,7 +2,7 @@
 " Maintainer    : lwflwf1
 " Website       : https://github.com/lwflwf1/vimrc.com
 " Created Time  : 2021-04-26 19:55:52
-" Last Modified : 2021-04-26 20:00:59
+" Last Modified : 2021-04-30 16:03:33
 " File          : functions.vim
 " License       : MIT
 
@@ -20,7 +20,7 @@ let s:mode_dict = {
   \ 'r'  : 'REPLACE',
   \ 'R'  : 'REPLACE',
 \ }
-function functions#UpdateLastModified() abort
+function! functions#UpdateLastModified() abort
   let l:cursor_positon = getcurpos()
   %s/\v(Last Modified\s*:\s+)%(%(\d|-|:|\s)+)/\=submatch(1).strftime("%Y-%m-%d %H:%M:%S")/e
   call setpos('.', l:cursor_positon)

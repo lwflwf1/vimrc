@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-04-29 17:55:57
+" Last Modified: 2021-04-30 15:48:03
 " File:          keymap.vim
 " License:       MIT
 
@@ -92,32 +92,35 @@ inoremap <silent> <c-z> <c-o>zz
 
 inoremap <C-a> <home>
 inoremap <C-e> <end>
+inoremap <C-b> <left>
+inoremap <C-f> <right>
+inoremap <m-b> <C-left>
+inoremap <m-f> <C-right>
 inoremap <C-d> <del>
-inoremap <silent> <m-o> <c-o>o
-inoremap <silent> <m-O> <c-o>O
+inoremap <c-y> <c-r>"
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
+cnoremap <C-b> <left>
+cnoremap <C-f> <right>
+cnoremap <m-b> <C-left>
+cnoremap <m-f> <C-right>
 cnoremap <C-d> <del>
-
-inoremap <C-h> <left>
-inoremap <C-l> <right>
-inoremap <m-h> <C-left>
-inoremap <m-l> <C-right>
-cnoremap <C-h> <left>
-cnoremap <C-l> <right>
-cnoremap <m-h> <C-left>
-cnoremap <m-l> <C-right>
-cnoremap <c-j> <down>
-cnoremap <c-k> <up>
+cnoremap <c-y> <c-r>"
 
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-a> <home>
 tnoremap <C-e> <end>
+tnoremap <C-b> <left>
+tnoremap <C-f> <right>
+tnoremap <m-b> <C-left>
+tnoremap <m-f> <C-right>
 tnoremap <C-d> <del>
-tnoremap <C-h> <left>
-tnoremap <C-l> <right>
-tnoremap <m-h> <C-left>
-tnoremap <m-l> <C-right>
+tnoremap <c-y> <c-r>"
+
+inoremap <silent> <m-o> <c-o>o
+inoremap <silent> <m-O> <c-o>O
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
 
 onoremap <silent> inb :<c-u>silent execute "normal! /(\r:nohlsearch\rvi("<cr>
 onoremap <silent> ilb :<c-u>silent execute "normal! ?(\r:nohlsearch\rvi("<cr>
@@ -137,8 +140,3 @@ onoremap <silent> il' :<c-u>silent execute "normal! ?'\r:nohlsearch\rvi'"<cr>
 " find placeholder <++> and insert
 nnoremap <silent> <m-i> /<++><CR>:nohlsearch<CR>c4l
 inoremap <silent> <m-i> <Esc>/<++><CR>:nohlsearch<CR>c4l
-
-augroup q_on_help_group
-    autocmd!
-    autocmd FileType help nnoremap <silent> <buffer> q :bwipeout!<cr>
-augroup END

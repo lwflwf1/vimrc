@@ -2,13 +2,15 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-28 23:37:50
+" Last Modified: 2021-04-30 16:23:54
 " File:          basic.vim
 " License:       MIT
 
 set nocompatible
 syntax on
 syntax enable
+filetype plugin indent on
+set diffopt=vertical,filler,internal,context:4
 set fileformat=unix
 set termguicolors
 set autoindent
@@ -113,8 +115,6 @@ if has('gui_running')
     set guioptions-=e " Hide tab
 endif
 
-filetype plugin indent on
-
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
 
 set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib "stuff to ignore when tab completing
@@ -134,13 +134,10 @@ set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 
-" set runtimepath+=C:/disk_2/vim-session-manager
-
 " set ambiwidth=double
 " set lazyredraw
 " set showmatch
 " set matchtime=1
-" set t_Co=256
 " set shell=powershell.exe
 " set virtualedit=block,onemore
 " set cindent
@@ -201,30 +198,6 @@ execute "nohlsearch"
 "    endif
 "endif
 
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 3
-
-let g:match_words = '\<if\>:\<endif\>:\<else\>,'
-\ . '\<while\>:\<continue\>,'
-\ . '\<begin\>:\<end\>,'
-\ . '\<module\>:\<endmodule\>,'
-\ . '\<class\>:\<endclass\>,'
-\ . '\<program\>:\<endprogram\>,'
-\ . '\<clocking\>:\<endclocking\>,'
-\ . '\<property\>:\<endproperty\>,'
-\ . '\<sequence\>:\<endsequence\>,'
-\ . '\<package\>:\<endpackage\>,'
-\ . '\<covergroup\>:\<endgroup\>,'
-\ . '\<primitive\>:\<endprimitive\>,'
-\ . '\<specify\>:\<endspecify\>,'
-\ . '\<generate\>:\<endgenerate\>,'
-\ . '\<interface\>:\<endinterface\>,'
-\ . '\<function\>:\<endfunction\>,'
-\ . '\<task\>:\<endtask\>,'
-\ . '\<case\>\|\<casex\>\|\<casez\>:\<endcase\>,'
-\ . '\<fork\>:\<join\>\|\<join_any\>\|\<join_none\>,'
-\ . '`ifdef\>:`else\>:`endif\>,'
-\ . '\<generate\>:\<endgenerate\>'
 
 " 定位到退出位置并移动到屏幕中央
 augroup return_exit_positon
@@ -235,4 +208,14 @@ augroup END
 augroup update_last_modified_on_write
   autocmd!
   autocmd BufWritePre * call functions#UpdateLastModified()
+augroup END
+
+augroup nolist_group
+    autocmd!
+    autocmd FileType help,git,gitcommit setlocal nolist | setlocal nonumber | setlocal norelativenumber
+augroup END
+
+augroup q_for_quit_on_helpfile_group
+    autocmd!
+    autocmd FileType help nnoremap <silent> <buffer> q :bwipeout<cr>
 augroup END

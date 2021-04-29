@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-29 18:53:07
+" Last Modified: 2021-04-30 16:22:53
 " File:          plugin.vim
 " License:       MIT
 
@@ -90,6 +90,7 @@ call dein#add( 'yianwillis/vimcdoc')
 call dein#add( 'neoclide/coc.nvim', {
   \ 'if': "has('nvim-0.3.2') || has('patch-8.0.1453')",
   \ 'rev': 'release',
+  \ 'lazy': 1,
   \ })
 
 " vista.vim requires neovim or vim 8.0.27+ if you want ctags to run asynchonously
@@ -291,15 +292,17 @@ call dein#local("C:/disk_2/vim-plugin", {
   \ 'frozen': 1,
   \ 'merged': 0,
   \ 'lazy': 1,
-  \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#']
+  \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#', '/', '?']
   \ }, ['vim-smart-hlsearch'])
-" call dein#add( 'haya14busa/incsearch.vim')
-" call dein#add( 'kana/vim-textobj-user')
-" call dein#add( 'skywind3000/vim-terminal-help')
-" call dein#add( 'skywind3000/vim-auto-popmenu')
-" call dein#add( 'Linfee/ultisnips-zh-doc')
-" call dein#add( 'SirVer/ultisnips')
-" call dein#add( 'codota/tabnine-vim')
+
+" call dein#add('google/vimdoc')
+" call dein#add('haya14busa/incsearch.vim')
+" call dein#add('kana/vim-textobj-user')
+" call dein#add('skywind3000/vim-terminal-help')
+" call dein#add('skywind3000/vim-auto-popmenu')
+" call dein#add('Linfee/ultisnips-zh-doc')
+" call dein#add('SirVer/ultisnips')
+" call dein#add('codota/tabnine-vim')
 
 call dein#end()
 call dein#save_state()
@@ -308,6 +311,9 @@ if dein#check_install()
   call dein#install()
 endif
 unlet s:dein_path
+
+" lazy load coc.nvim
+call timer_start(100, { -> dein#source('coc.nvim')})
 
 " if !exists("g:plugs")
 "     " mode, buffer number, file path, preview window flag,
@@ -333,14 +339,13 @@ if dein#tap('lightline.vim')
     \ 'git'         : "\ue725",
     \ 'modified'    : "\uf040",
     \ 'readonly'    : "\uf456",
-    \ 'session'     : "\ue774",
+    \ 'session'     : "\uf413",
     \ 'gitadd'      : "\uf457",
     \ 'gitdelete'   : "\uf458",
     \ 'gitmodified' : "\uf459",
     \ 'error'       : "\uf467",
     \ 'warning'     : "\uf071",
     \ }
-    " \ 'modified'    : "\uf444",
   let s:normal_icons = {
     \ 'git'         : "Git:",
     \ 'modified'    : "+",
@@ -368,7 +373,7 @@ if dein#tap('lightline.vim')
       return ''
     elseif empty(l:gitsummary)
       return s:icons['git'].' '.l:gitname
-    elseif winwidth(0) > 80
+    elseif winwidth(0) > 100
       return join([s:icons['git'], l:gitname, s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
     else
       return join([s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
@@ -376,11 +381,11 @@ if dein#tap('lightline.vim')
   endfunction
 
   function MyLightlineFileType() abort
-    return index(s:special_filetypes, &ft) !=# -1 || &ft ==# ''? '' : WebDevIconsGetFileTypeSymbol().' '.&ft
+    return index(s:special_filetypes, &ft) !=# -1 || &ft ==# '' || winwidth(0) < 90 ? '' : &ft
   endfunction
 
   function MyLightlineReadonly() abort
-    if index(s:special_filetypes, &ft) !=# -1 || !&readonly | return '' | endif
+    if index(s:special_filetypes, &ft) !=# -1 || !&readonly && &modifiable | return '' | endif
     return s:icons['readonly']
   endfunction
 
@@ -390,25 +395,25 @@ if dein#tap('lightline.vim')
 
   function MyLightlineFilename() abort
     if index(s:special_filetypes, &ft) !=# -1 | return '' | endif
-    let l:filename = expand('%:t')
+    let l:filename = trim(WebDevIconsGetFileTypeSymbol()." ".expand('%:t'))
     let l:modified = &modified ? ' '.s:icons['modified']: ''
     return l:filename.l:modified
   endfunction
 
   function MyLightlineSession() abort
-    if exists('g:loaded_vim_session_manager') && winwidth(0) > 70 && !empty(SessionStatusLine())
+    if exists('g:loaded_vim_session_manager') && winwidth(0) > 80 && !empty(SessionStatusLine())
       return s:icons['session'].' '.SessionStatusLine()
     endif
     return ''
   endfunction
 
   function MyLightlineFileformat() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 105 | return '' | endif
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 120 | return '' | endif
     return &fileformat
   endfunction
 
   function MyLightlineFileencoding() abort
-    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 95 | return '' | endif
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 110 | return '' | endif
     return &fileencoding
   endfunction
 
@@ -762,7 +767,7 @@ if dein#tap('vim-fugitive')
 nnoremap <silent> <leader>gw :Gwrite<cr>
 nnoremap <silent> <leader>gc :Git commit<cr>
 nnoremap <silent> <leader>gr :Gread<cr>
-nnoremap <silent> <leader>gd :Gdiffsplit<cr>
+nnoremap <silent> <leader>gd :Gdiffsplit @<cr>
 nnoremap <silent> <leader>gb :Git blame<cr>
 nnoremap <silent> <leader>gg :Git<cr>
 nnoremap <silent> <leader>gl :Git log<cr>
@@ -1202,7 +1207,7 @@ if dein#tap('bullets.vim')
   \]
 
   let g:bullets_enable_in_empty_buffers = 0
-  let g:bullets_set_mappings = 0
+  " let g:bullets_set_mappings = 0
   let g:bullets_line_spacing = 2
 endif
 
@@ -1224,6 +1229,40 @@ if dein#tap('vim-illuminate')
     let g:Illuminate_ftblacklist = ['python']
   endif
 
-  let g:Illuminate_ftblacklist += ['help', 'qf', 'far', 'leaderf', 'vista', 'floaterm', 'markdown']
-
+  let g:Illuminate_ftblacklist += [
+    \ 'help',
+    \ 'qf',
+    \ 'far',
+    \ 'leaderf',
+    \ 'vista',
+    \ 'floaterm',
+    \ 'markdown',
+    \ 'git',
+    \ 'gitcommit',
+    \]
 endif
+
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 3
+
+let g:match_words = '\<if\>:\<endif\>:\<else\>,'
+\ . '\<while\>:\<continue\>,'
+\ . '\<begin\>:\<end\>,'
+\ . '\<module\>:\<endmodule\>,'
+\ . '\<class\>:\<endclass\>,'
+\ . '\<program\>:\<endprogram\>,'
+\ . '\<clocking\>:\<endclocking\>,'
+\ . '\<property\>:\<endproperty\>,'
+\ . '\<sequence\>:\<endsequence\>,'
+\ . '\<package\>:\<endpackage\>,'
+\ . '\<covergroup\>:\<endgroup\>,'
+\ . '\<primitive\>:\<endprimitive\>,'
+\ . '\<specify\>:\<endspecify\>,'
+\ . '\<generate\>:\<endgenerate\>,'
+\ . '\<interface\>:\<endinterface\>,'
+\ . '\<function\>:\<endfunction\>,'
+\ . '\<task\>:\<endtask\>,'
+\ . '\<case\>\|\<casex\>\|\<casez\>:\<endcase\>,'
+\ . '\<fork\>:\<join\>\|\<join_any\>\|\<join_none\>,'
+\ . '`ifdef\>:`else\>:`endif\>,'
+\ . '\<generate\>:\<endgenerate\>'

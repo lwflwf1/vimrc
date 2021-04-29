@@ -1,3 +1,11 @@
+" Description:   markdown ftplugin
+" Maintainer:    lwflwf1
+" Website:       https://github.com/lwflwf1/vimrc.com
+" Created Time:  2021-04-30 15:16:12
+" Last Modified: 2021-04-30 16:25:33
+" File:          markdown.vim
+" License:       MIT
+
 inoremap <buffer> <m-1> #<space>
 inoremap <buffer> <m-2> ##<space>
 inoremap <buffer> <m-3> ###<space>
