@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-04-30 15:48:03
+" Last Modified: 2021-05-03 23:09:13
 " File:          keymap.vim
 " License:       MIT
 
@@ -30,8 +30,8 @@ nnoremap > >>_
 
 nnoremap Y y$
 
-noremap <c-f> <c-f>zz
-noremap <c-b> <c-b>zz
+noremap <c-f> <c-f>M
+noremap <c-b> <c-b>M
 noremap <c-u> <c-u>zz
 noremap <c-d> <c-d>zz
 noremap <c-e> 3<c-e>
@@ -98,6 +98,7 @@ inoremap <m-b> <C-left>
 inoremap <m-f> <C-right>
 inoremap <C-d> <del>
 inoremap <c-y> <c-r>"
+
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
 cnoremap <C-b> <left>
@@ -107,7 +108,7 @@ cnoremap <m-f> <C-right>
 cnoremap <C-d> <del>
 cnoremap <c-y> <c-r>"
 
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <esc> <C-\><C-n>
 tnoremap <C-a> <home>
 tnoremap <C-e> <end>
 tnoremap <C-b> <left>

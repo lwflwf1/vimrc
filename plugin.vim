@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-04-30 16:22:53
+" Last Modified: 2021-05-01 21:24:16
 " File:          plugin.vim
 " License:       MIT
 
@@ -601,21 +601,21 @@ if dein#tap('vim-auto-popmenu')
 endif
 
 if dein#tap('ultisnips')
-  let g:UltiSnipsExpandTrigger="<m-e>"
-  let g:UltiSnipsJumpForwardTrigger="<m-e>"
-  let g:UltiSnipsSnippetDir=stdpath('config').'\Ultisnips'
-  let g:UltiSnipsSnippetDirectories=[stdpath('config').'\Ultisnips']
-  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsExpandTrigger      = "<m-e>"
+  let g:UltiSnipsJumpForwardTrigger = "<m-e>"
+  let g:UltiSnipsSnippetDir         = stdpath('config').'\Ultisnips'
+  let g:UltiSnipsSnippetDirectories = [stdpath('config').'\Ultisnips']
+  let g:UltiSnipsEditSplit          = "vertical"
 endif
 
 if dein#tap('coc.nvim')
   if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>zz"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>zz"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>zz"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>zz"
+    nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>zz"
+    nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>zz"
+    inoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<del>"
+    inoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<c-u>"
+    vnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>zz"
+    vnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>zz"
   endif
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -1181,6 +1181,7 @@ nnoremap <silent> <m--> :FloatermKill<CR>
 tnoremap <silent> <m--> <C-\><C-n>:FloatermKill<CR>
 nnoremap <silent> <m-f> :FloatermNew fzf<cr>
 nnoremap <silent> <m-r> :FloatermNew rg<cr>
+nnoremap <silent> <m-g> :FloatermNew --name=lazygit --width=1.0 --height=1.0 lazygit<cr>
 
 endif
 
