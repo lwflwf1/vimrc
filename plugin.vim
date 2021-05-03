@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-04 00:51:57
+" Last Modified: 2021-05-04 00:29:01
 " File:          plugin.vim
 " License:       MIT
 
