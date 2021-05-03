@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-01 21:24:16
+" Last Modified: 2021-05-04 00:29:01
 " File:          plugin.vim
 " License:       MIT
 
@@ -281,19 +281,29 @@ call dein#add( 'numirias/semshi', {
   \ 'hook_post_update': 'UpdateRemotePlugins'
   \ })
 
-call dein#local("C:/disk_2/vim-plugin", {
-  \ 'frozen': 1,
-  \ 'merged': 0,
+call dein#add('lwflwf1/vim-session-manager', {
   \ 'lazy': 1,
   \ 'on_cmd': ['SessionList', 'SessionSave', 'SessionLoad']
-  \ }, ['vim-session-manager'])
+  \ })
 
-call dein#local("C:/disk_2/vim-plugin", {
-  \ 'frozen': 1,
-  \ 'merged': 0,
+call dein#add('lwflwf1/vim-smart-hlsearch', {
   \ 'lazy': 1,
   \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#', '/', '?']
-  \ }, ['vim-smart-hlsearch'])
+  \ })
+
+" call dein#local("C:/disk_2/vim-plugin", {
+"   \ 'frozen': 1,
+"   \ 'merged': 0,
+"   \ 'lazy': 1,
+"   \ 'on_cmd': ['SessionList', 'SessionSave', 'SessionLoad']
+"   \ }, ['vim-session-manager'])
+
+" call dein#local("C:/disk_2/vim-plugin", {
+"   \ 'frozen': 1,
+"   \ 'merged': 0,
+"   \ 'lazy': 1,
+"   \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#', '/', '?']
+"   \ }, ['vim-smart-hlsearch'])
 
 " call dein#add('google/vimdoc')
 " call dein#add('haya14busa/incsearch.vim')
