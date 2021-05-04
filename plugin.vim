@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-04 00:29:01
+" Last Modified: 2021-05-05 01:01:33
 " File:          plugin.vim
 " License:       MIT
 
@@ -761,13 +761,15 @@ endif
 if dein#tap('vim-fugitive')
 
 nnoremap <silent> <leader>gw :Gwrite<cr>
-nnoremap <silent> <leader>gc :Git commit<cr>
 nnoremap <silent> <leader>gr :Gread<cr>
 nnoremap <silent> <leader>gd :Gdiffsplit @<cr>
 nnoremap <silent> <leader>gb :Git blame<cr>
 nnoremap <silent> <leader>gg :Git<cr>
 nnoremap <silent> <leader>gl :Git log<cr>
-nnoremap <silent> <leader>ge :Git rebase
+nnoremap <silent> <leader>gp :Git pull<cr>
+nnoremap <silent> <leader>gP :Git push<cr>
+nnoremap <silent> <leader>gcc :Git commit<cr>
+nnoremap <silent> <leader>gca :Git commit --amend -no-edit<cr>
 
 endif
 
@@ -1177,7 +1179,7 @@ nnoremap <silent> <m--> :FloatermKill<CR>
 tnoremap <silent> <m--> <C-\><C-n>:FloatermKill<CR>
 nnoremap <silent> <m-f> :FloatermNew fzf<cr>
 nnoremap <silent> <m-r> :FloatermNew rg<cr>
-nnoremap <silent> <m-g> :FloatermNew --name=lazygit --width=1.0 --height=1.0 lazygit<cr>
+nnoremap <silent> <c-g> :FloatermNew --name=lazygit --width=1.0 --height=1.0 lazygit<cr>
 
 endif
 
