@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-04-30 16:23:54
+" Last Modified: 2021-05-06 12:08:59
 " File:          basic.vim
 " License:       MIT
 
@@ -100,7 +100,7 @@ if executable('rg')
 endif
 if has('nvim')
     set inccommand=nosplit
-    set signcolumn=auto:2
+    set signcolumn=yes:2
 else
     set signcolumn=yes
 endif
