@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-06 10:12:54
+" Last Modified: 2021-05-06 15:02:05
 " File:          plugin.vim
 " License:       MIT
 
@@ -722,6 +722,8 @@ let g:coc_global_extensions = [
   \ 'coc-jedi',
   \ 'coc-tabnine',
   \ 'coc-tasks',
+  \ 'coc-marketplace',
+  \ 'coc-yaml',
   \ ]
 
   if has('nvim-0.3.1') || has('patch-8.1.1418')
