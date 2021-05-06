@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-05 01:12:01
+" Last Modified: 2021-05-06 10:12:54
 " File:          plugin.vim
 " License:       MIT
 
@@ -767,8 +767,8 @@ nnoremap <silent> <leader>gg :Git<cr>
 nnoremap <silent> <leader>gl :Git log<cr>
 nnoremap <silent> <leader>gp :Git pull<cr>
 nnoremap <silent> <leader>gP :Git push<cr>
-nnoremap <silent> <leader>gcc :Git commit<cr>
-nnoremap <silent> <leader>gca :Git commit --amend --no-edit<cr>
+nnoremap <silent> <leader>gc :Git commit<cr>
+nnoremap <silent> <leader>gA :Git commit --amend --no-edit<cr>
 
 endif
 
