@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-06 15:02:05
+" Last Modified: 2021-05-06 23:57:00
 " File:          plugin.vim
 " License:       MIT
 
@@ -73,8 +73,6 @@ call dein#add('ajmwagar/vim-deus')
 call dein#add( 'joshdick/onedark.vim')
 " call dein#add('romgrk/doom-one.vim')
 call dein#add( 'ryanoasis/vim-devicons')
-" call dein#add( 'vim-airline/vim-airline')
-" call dein#add( 'vim-airline/vim-airline-themes')
 call dein#add('itchyny/lightline.vim')
 call dein#add('mengelbrecht/lightline-bufferline')
 " call dein#add('romgrk/barbar.nvim')
@@ -692,7 +690,7 @@ function s:cocsearch(type) abort
 endfunction
 
 " Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
+" Example: `<leader>cap` for current paragraph
 xmap <leader>c  <Plug>(coc-codeaction-selected)
 nmap <leader>c  <Plug>(coc-codeaction-selected)
 nmap <leader>cc <Plug>(coc-codeaction)
@@ -840,26 +838,6 @@ nnoremap <silent> <leader>fk :LeaderMarks<cr>
 nnoremap <silent> <leader>rg :LeaderfRgInteractive<CR>
 nmap <silent> <leader>rw <Plug>LeaderfRgCwordLiteralBoundary<cr>
 xmap <silent> gf <Plug>LeaderfRgVisualLiteralNoBoundary<cr>
-" xnoremap <silent> gf :<c-u><c-r>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<cr><cr>
-endif
-
-if dein#tap('vim-airline')
-  "adding to vim-airline's tabline
-  let g:webdevicons_enable_airline_tabline = 1
-  "adding to vim-airline's statusline
-  let g:webdevicons_enable_airline_statusline = 1
-
-  let g:airline#extensions#branch#enabled = 1
-
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline#extensions#tabline#show_tabs = 1
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline#extensions#whitespace#enabled = 0
-  let g:airline#extensions#tabline#formatter = 'unique_tail'
-
 endif
 
 if dein#tap('switch.vim')
