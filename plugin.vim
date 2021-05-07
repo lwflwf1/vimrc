@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-07 10:21:20
+" Last Modified: 2021-05-07 20:17:11
 " File:          plugin.vim
 " License:       MIT
 
@@ -318,6 +318,11 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 "     " filetype, percentage, line number, total line numbers, column number
 "     set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
 " endif
+
+if dein#tap('vim-session-manager')
+  nnoremap <silent> <leader>L :SessionList<cr>
+  nnoremap <silent> <leader>S :SessionSave<cr>
+endif
 
 if dein#tap('wildfire.vim')
   map <cr> <Plug>(wildfire-fuel)
