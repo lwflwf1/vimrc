@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-05-06 12:08:59
+" Last Modified: 2021-05-07 10:30:05
 " File:          basic.vim
 " License:       MIT
 
@@ -212,7 +212,7 @@ augroup END
 
 augroup nolist_group
     autocmd!
-    autocmd FileType help,git,gitcommit setlocal nolist | setlocal nonumber | setlocal norelativenumber
+    autocmd FileType help,git,gitcommit setlocal nolist | setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no
 augroup END
 
 augroup q_for_quit_on_helpfile_group
