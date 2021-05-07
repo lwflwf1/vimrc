@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-05-03 23:09:13
+" Last Modified: 2021-05-07 10:21:07
 " File:          keymap.vim
 " License:       MIT
 

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-06 23:57:00
+" Last Modified: 2021-05-07 10:21:20
 " File:          plugin.vim
 " License:       MIT
 
@@ -289,14 +289,12 @@ call dein#add('lwflwf1/vim-smart-hlsearch', {
   \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#', '/', '?']
   \ })
 
-" call dein#add('google/vimdoc')
 " call dein#add('haya14busa/incsearch.vim')
 " call dein#add('kana/vim-textobj-user')
 " call dein#add('skywind3000/vim-terminal-help')
 " call dein#add('skywind3000/vim-auto-popmenu')
 " call dein#add('Linfee/ultisnips-zh-doc')
 " call dein#add('SirVer/ultisnips')
-" call dein#add('codota/tabnine-vim')
 
 call dein#end()
 call dein#save_state()
@@ -538,7 +536,7 @@ if dein#tap('vim-easymotion')
   endif
 endif
 
-if dein#tap('incsearch.vim')
+" if dein#tap('incsearch.vim')
   " map /  <Plug>(incsearch-forward)
   " map ?  <Plug>(incsearch-backward)
   " map g/ <Plug>(incsearch-stay)
@@ -550,7 +548,7 @@ if dein#tap('incsearch.vim')
   " nmap #  <Plug>(incsearch-nohl-#)
   " nmap g* <Plug>(incsearch-nohl-g*)
   " nmap g# <Plug>(incsearch-nohl-g#)
-endif
+" endif
 
 if dein#tap('vim-subversive')
   nmap s  <plug>(SubversiveSubstitute)
