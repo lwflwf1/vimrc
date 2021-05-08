@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-07 20:17:11
+" Last Modified: 2021-05-08 11:08:04
 " File:          plugin.vim
 " License:       MIT
 
@@ -242,7 +242,7 @@ call dein#add( 'iamcco/markdown-preview.nvim', {
   \ 'if': "has('nvim') || v:version >=# 801",
   \ 'lazy': 1,
   \ 'on_ft': 'markdown',
-  \ 'hook_post_update': 'call mkdp#util#install()'
+  \ 'hook_post_update': { -> mkdp#util#install() }
   \ })
 
 call dein#add( 'voldikss/vim-floaterm', {
