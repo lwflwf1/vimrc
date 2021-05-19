@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-07 20:17:11
+" Last Modified: 2021-05-19 15:33:08
 " File:          plugin.vim
 " License:       MIT
 
@@ -322,6 +322,7 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 if dein#tap('vim-session-manager')
   nnoremap <silent> <leader>L :SessionList<cr>
   nnoremap <silent> <leader>S :SessionSave<cr>
+  nnoremap <silent> <leader>R :SessionLoad<cr>
 endif
 
 if dein#tap('wildfire.vim')
@@ -333,21 +334,25 @@ if dein#tap('lightline.vim')
   let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf']
   let s:lightline_nerd_font_enable = 1
   let s:nerd_font_icons = {
-    \ 'git'         : "\ue725",
-    \ 'modified'    : "\uf040",
+    \ 'modified'    : "●",
     \ 'readonly'    : "\uf456",
     \ 'session'     : "\uf413",
-    \ 'gitadd'      : "\uf457",
-    \ 'gitdelete'   : "\uf458",
-    \ 'gitmodified' : "\uf459",
+    \ 'git'         : "\ue725",
+    \ 'gitadd'      : "+",
+    \ 'gitdelete'   : "-",
+    \ 'gitmodified' : "~",
     \ 'error'       : "\uf467",
     \ 'warning'     : "\uf071",
     \ }
+    " \ 'modified'    : "\uf040",
+    " \ 'gitadd'      : "\uf457",
+    " \ 'gitdelete'   : "\uf458",
+    " \ 'gitmodified' : "\uf459",
   let s:normal_icons = {
-    \ 'git'         : "Git:",
     \ 'modified'    : "+",
     \ 'readonly'    : "RO",
     \ 'session'     : "S:",
+    \ 'git'         : "Git:",
     \ 'gitadd'      : "+",
     \ 'gitdelete'   : "-",
     \ 'gitmodified' : "~",
@@ -371,9 +376,9 @@ if dein#tap('lightline.vim')
     elseif empty(l:gitsummary)
       return s:icons['git'].' '.l:gitname
     elseif winwidth(0) > 100
-      return join([s:icons['git'], l:gitname, s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
+      return join([s:icons['git'], l:gitname, s:icons['gitadd'].l:gitsummary[0], s:icons['gitmodified'].l:gitsummary[1], s:icons['gitdelete'].l:gitsummary[2]], ' ')
     else
-      return join([s:icons['gitadd'], l:gitsummary[0], s:icons['gitmodified'], l:gitsummary[1], s:icons['gitdelete'], l:gitsummary[2]], ' ')
+      return join([s:icons['gitadd'].l:gitsummary[0], s:icons['gitmodified'].l:gitsummary[1], s:icons['gitdelete'].l:gitsummary[2]], ' ')
     endif
   endfunction
 
@@ -488,11 +493,12 @@ endif
 
 if dein#tap('lightline-bufferline')
     let g:lightline#bufferline#enable_devicons = 1
-    let g:lightline#bufferline#show_number = 2
+    let g:lightline#bufferline#show_number = 4
     let g:lightline#bufferline#read_only = ' '.s:icons['readonly']
     let g:lightline#bufferline#modified = ' '.s:icons['modified']
     let g:lightline#bufferline#clickable = 1
     let g:lightline.component_raw = {'buffers': 1}
+    let g:lightline#bufferline#ordinal_separator = '|'
     " let g:lightline#bufferline#unicode_symbols = 1
 endif
 
@@ -720,7 +726,6 @@ let g:coc_global_extensions = [
   \ 'coc-yank',
   \ 'coc-translator',
   \ 'coc-snippets',
-  \ 'coc-jedi',
   \ 'coc-tabnine',
   \ 'coc-tasks',
   \ 'coc-marketplace',
@@ -888,7 +893,7 @@ endif
 
 if dein#tap('asynctasks.vim')
 " F4 to run AsyncTask [runTask]
-nnoremap <silent><f4> :AsyncTask runTask<cr>
+" nnoremap <silent><f4> :AsyncTask runTask<cr>
 let g:asynctasks_rtp_config = "global_tasks.ini"
 endif
 

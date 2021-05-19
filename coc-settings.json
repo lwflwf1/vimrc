@@ -47,9 +47,9 @@
 
     "python.pythonPath": "C:/disk_1/Miniconda/envs/study/python.exe",
     "pyright.enable": true,
-    "jedi.executable.command": "C:/disk_1/Miniconda/Scripts/jedi-language-server.exe",
-    "jedi.diagnostics.enable": false,
-    "jedi.enable": true,
+    /* "jedi.executable.command": "C:/disk_1/Miniconda/Scripts/jedi-language-server.exe", */
+    /* "jedi.diagnostics.enable": false, */
+    /* "jedi.enable": false, */
 
     "tabnine.binary_path": "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.3.108/x86_64-pc-windows-gnu/TabNine.exe",
 
