@@ -51,7 +51,7 @@
     /* "jedi.diagnostics.enable": false, */
     /* "jedi.enable": false, */
 
-    "tabnine.binary_path": "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.3.108/x86_64-pc-windows-gnu/TabNine.exe",
+    "tabnine.binary_path": "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.4.9/x86_64-pc-windows-gnu/TabNine.exe",
 
     "explorer.openAction.strategy": "select",
     "explorer.width": 40,
@@ -66,15 +66,15 @@
             "expand": true
         }
     ],
-    "explorer.file.column.indent.indentLine": false,
-    "explorer.file.showHiddenFiles": true,
-    "explorer.icon.enableNerdfont": true,
-    "explorer.file.root.template": "[icon & 1] FILE [root] [fullpath]",
-    "explorer.buffer.root.template": "[icon & 1] BUFFER",
-    "explorer.buffer.tabOnly": false,
-    "explorer.git.icon.status.ignored": "I",
-    "explorer.git.icon.status.untracked": "u",
-    "explorer.file.revealWhenOpen": true,
+    "explorer.file.column.indent.indentLine" : false,
+    "explorer.file.showHiddenFiles"          : true,
+    "explorer.icon.enableNerdfont"           : true,
+    "explorer.file.root.template"            : "[icon & 1] FILE [root] [fullpath]",
+    "explorer.buffer.root.template"          : "[icon & 1] BUFFER",
+    "explorer.buffer.tabOnly"                : false,
+    "explorer.git.icon.status.ignored"       : "I",
+    "explorer.git.icon.status.untracked"     : "u",
+    "explorer.file.revealWhenOpen"           : true,
     "explorer.keyMappings.global": {
         "x": "systemExcute",
         "s": "gitStage",
