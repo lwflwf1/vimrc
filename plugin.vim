@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-19 15:33:08
+" Last Modified: 2021-05-23 15:01:28
 " File:          plugin.vim
 " License:       MIT
 
@@ -158,6 +158,7 @@ call dein#add( 'vhda/verilog_systemverilog.vim', {
   \ })
 
 call dein#add( 'ludovicchabant/vim-gutentags', {
+  \ 'if': 'executable("ctags")',
   \ 'lazy':1,
   \ 'on_event': 'BufReadPost'
   \ })
@@ -434,7 +435,8 @@ if dein#tap('lightline.vim')
     " if get(info, 'warning', 0)
     call add(msgs, s:icons['warning'].' '.get(info, 'warning', 0))
     " endif
-    return trim(join(msgs, ' ') . ' ' . get(g:, 'coc_status', ''))
+    " return trim(join(msgs, ' ') . ' ' . get(g:, 'coc_status', ''))
+    return join(msgs, ' ')
   endfunction
 
   " function! s:trim(str)
@@ -736,6 +738,10 @@ let g:coc_global_extensions = [
     let g:coc_global_extensions += ['coc-explorer']
   endif
 
+  if executable('clangd')
+    let g:coc_global_extensions += ['coc-clangd']
+  endif
+
 endif
 
 if dein#tap('vim-gitgutter')
@@ -746,7 +752,7 @@ let g:gitgutter_highlight_linenrs = 1
 let g:gitgutter_map_keys = 0
 let g:gitgutter_max_signs = 500
 let g:gitgutter_preview_win_floating = 1
-let g:gitgutter_git_executable = 'C:\disk_1\Git\bin\git.exe'
+" let g:gitgutter_git_executable = 'C:\disk_1\Git\bin\git.exe'
 
 command! GitInQuickFix GitGutterQuickFix | copen
 
@@ -872,22 +878,62 @@ endif
 
 if dein#tap('vim-gutentags')
 
-" set statusline+=%{gutentags#statusline()}
-" set the file name suffix of tags file
 let g:gutentags_enabled = 1
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_project_root = ['.project', '.root', '.gitignore']
 let g:gutentags_add_default_project_roots = 1
-let g:gutentags_ctags_executable = 'C:/disk_1/ctags/ctags.exe'
+let g:gutentags_generate_on_write = 1
+let g:gutentags_file_list_command = {
+    \ 'markers': {
+      \ '.git': 'git ls-files',
+      \ '.hg': 'hg files',
+      \ },
+    \ }
+
+" let g:gutentags_ctags_executable = 'C:/disk_1/ctags/ctags.exe'
 
 " set the directory of the tags file
-" let s:vim_tags = expand('./tags')
-" if !isdirectory(s:vim_tags)
-"   silent! call mkdir(s:vim_tags, 'p')
-" endif
-" let g:gutentags_cache_dir = s:vim_tags
+if has('nvim')
+let s:tags_dir = stdpath('data').'/tags/'
+else
+let s:tags_dir = '~/tags/'
+endif
+if !isdirectory(s:tags_dir)
+silent! call mkdir(s:tags_dir, 'p')
+endif
+
+let g:gutentags_cache_dir = s:tags_dir
 " ctages arguments
-let g:gutentags_ctags_extra_args = ['--extras=+q', '--fileds=+i', '-n']
+let g:gutentags_ctags_extra_args = ['--extras=+q', '--fields=+i', '-n']
+
+function s:list_tags() abort
+  let l:tags = map(globpath(s:tags_dir, '*'.g:gutentags_ctags_tagfile, 1, 1), 'fnamemodify(v:val, ":t")')
+  for t in l:tags
+    echomsg t
+  endfor
+endfunction
+
+function s:delete_tags(bang, ...) abort
+  if a:bang
+    let l:tags = globpath(s:tags_dir, '*'.g:gutentags_ctags_tagfile, 1, 1)
+    for t in l:tags
+      call delete(t)
+    endfor
+  elseif a:0 ==# 0
+    echo 'You must specify tags to delete!'
+  else
+    for t in a:000
+      call delete(s:tags_dir.t)
+    endfor
+  endif
+endfunction
+
+function s:delete_tags_complete(ArgLead, CmdLine, CursorPos) abort
+  return join(map(globpath(s:tags_dir, '*'.g:gutentags_ctags_tagfile, 1, 1), 'fnamemodify(v:val, ":t")'), "\n")
+endfunction
+
+command! -nargs=0 GutentagsList call <sid>list_tags()
+command! -nargs=* -bang -complete=custom,<sid>delete_tags_complete GutentagsDelete call <sid>delete_tags(<bang>0, <f-args>)
 
 endif
 
@@ -908,6 +954,15 @@ nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(15)<cr>
 
 " F9 编译 C/C++ 文件
 " nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent> <F9> :call <sid>compile_c()<cr>
+function s:compile_c() abort
+  if index(['c', 'cpp'], &ft) >= 0
+    execute 'AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+  else
+    echo 'this is not a c(cpp) file!'
+    return
+  endif
+endfunction
 
 " F5 运行文件或者运行选中行的python代码
 " nnoremap <silent> <F5> :AsyncTask runfile<cr>
