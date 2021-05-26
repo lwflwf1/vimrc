@@ -1,6 +1,6 @@
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! JetBrainsMono NF
+    GuiFont! JetBrainsMono NF:h15
 endif
 if exists(':GuiTabline')
     GuiTabline 0

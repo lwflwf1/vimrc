@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-05-15 23:14:41
+" Last Modified: 2021-05-24 22:06:32
 " File:          basic.vim
 " License:       MIT
 
@@ -27,7 +27,7 @@ set ignorecase
 set smartcase
 set infercase
 " set guifont=Inconsolata\ NF:h16
-set guifont=JetBrainsMono\ NF:h14
+set guifont=JetBrainsMono\ NF:h15
 set linespace=5
 set encoding=utf-8
 scriptencoding utf-8

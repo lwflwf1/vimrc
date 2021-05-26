@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-23 15:01:28
+" Last Modified: 2021-05-25 13:49:33
 " File:          plugin.vim
 " License:       MIT
 
@@ -10,6 +10,7 @@ let s:dein_path = g:dein_dir.'/repos/github.com/Shougo/dein.vim'
 let &runtimepath .= ','.s:dein_path
 let g:dein#install_max_processes = 12
 let g:dein#auto_recache = 1
+
 command! -nargs=* DeinUpdate     call dein#update(<f-args>)
 command! -nargs=* DeinInstall    call dein#install(<f-args>)
 command! -nargs=* DeinRecache    call dein#recache_runtimepath(<f-args>)
@@ -321,6 +322,7 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 " endif
 
 if dein#tap('vim-session-manager')
+  let g:session_default_session_enable = 0
   nnoremap <silent> <leader>L :SessionList<cr>
   nnoremap <silent> <leader>S :SessionSave<cr>
   nnoremap <silent> <leader>R :SessionLoad<cr>
@@ -689,15 +691,15 @@ nnoremap <silent> <leader>cs :set operatorfunc=<sid>cocsearch<cr>g@
 vnoremap <silent> <leader>cs :<c-u>call <sid>cocsearch(visualmode())<cr>
 
 function s:cocsearch(type) abort
+  let l:reg_save = @"
   if a:type ==# 'char'
     execute "normal! `[v`]y"
     execute "CocSearch -F ".escape(@", ' \/')
   elseif a:type ==# 'v'
     execute "normal! `<v`>y"
     execute "CocSearch -F ".escape(@", ' \/')
-  else
-    return
   endif
+  let @" = l:reg_save
 endfunction
 
 " Applying codeAction to the selected region.
@@ -794,7 +796,7 @@ map F <Plug>Sneak_S
 endif
 
 if dein#tap('LeaderF')
-let g:Lf_Ctags = 'C:/disk_1/ctags/ctags.exe'
+" let g:Lf_Ctags = 'C:/disk_1/ctags/ctags.exe'
 let g:Lf_IgnoreCurrentBufferName = 1
 let g:Lf_ShowDevIcons = 1
 let g:Lf_WildIgnore ={
@@ -1063,6 +1065,7 @@ let g:vista_blink = [1,0]
 let g:vista_default_executive = 'ctags'
 let g:vista_executive_for = {
   \ 'python': 'coc',
+  \ 'vim': 'coc',
   \ }
 
 nnoremap <silent> <leader>v :Vista!!<cr>
