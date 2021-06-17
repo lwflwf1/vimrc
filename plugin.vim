@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-05-25 13:49:33
+" Last Modified: 2021-06-17 18:08:56
 " File:          plugin.vim
 " License:       MIT
 
@@ -959,7 +959,8 @@ nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(15)<cr>
 nnoremap <silent> <F9> :call <sid>compile_c()<cr>
 function s:compile_c() abort
   if index(['c', 'cpp'], &ft) >= 0
-    execute 'AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+    let l:cmd = 'gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+    execute 'AsyncRun -cwd=$(VIM_FILEDIR) -save=2 -mode=async '.l:cmd
   else
     echo 'this is not a c(cpp) file!'
     return
