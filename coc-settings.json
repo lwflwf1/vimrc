@@ -52,7 +52,7 @@
     /* "jedi.enable": false, */
 
     "tabnine.binary_path":
-    "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.4.14/x86_64-pc-windows-gnu/TabNine.exe",
+    "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.5.3/x86_64-pc-windows-gnu/TabNine.exe",
 
     "explorer.openAction.strategy": "select",
     "explorer.width": 40,
