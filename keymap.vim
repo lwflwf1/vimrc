@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-05-07 10:21:07
+" Last Modified: 2021-07-04 00:19:28
 " File:          keymap.vim
 " License:       MIT
 
@@ -56,11 +56,11 @@ inoremap <silent> <m-p> <esc>:<c-u>move .-2<cr>==gi
 vnoremap <silent> <m-n> :<c-u>move '>+1<cr>gv=gv
 vnoremap <silent> <m-p> :<c-u>move '<-2<cr>gv=gv
 
-nnoremap <silent> tn    : <c-u>tabnew<CR>
-nnoremap <silent> tu    : <c-u>enew<CR>
-nnoremap <silent> <C-h> : <c-u>call functions#MoveTabOrBuf(0)<CR>
-nnoremap <silent> <C-l> : <c-u>call functions#MoveTabOrBuf(1)<CR>
-nnoremap <silent> <m-q> : <c-u>bd<CR>
+nnoremap <silent> tn    :<c-u>tabnew<CR>
+nnoremap <silent> tu    :<c-u>enew<CR>
+nnoremap <silent> <C-h> :<c-u>call functions#MoveTabOrBuf(0)<CR>
+nnoremap <silent> <C-l> :<c-u>call functions#MoveTabOrBuf(1)<CR>
+nnoremap <silent> <m-q> :<c-u>bd<CR>
 nnoremap <leader>wo <c-w>o
 nnoremap <leader>wr <c-w>R
 nnoremap <leader>wx <c-w>x
