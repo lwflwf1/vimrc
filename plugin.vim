@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-07-05 00:58:49
+" Last Modified: 2021-07-05 01:02:23
 " File:          plugin.vim
 " License:       MIT
 
@@ -618,8 +618,8 @@ endif
 if dein#tap('ultisnips')
   let g:UltiSnipsExpandTrigger      = "<m-e>"
   let g:UltiSnipsJumpForwardTrigger = "<m-e>"
-  let g:UltiSnipsSnippetDir         = stdpath('config').'\Ultisnips'
-  let g:UltiSnipsSnippetDirectories = [stdpath('config').'\Ultisnips']
+  let g:UltiSnipsSnippetDir         = g:data_dir.'Ultisnips'
+  let g:UltiSnipsSnippetDirectories = [g:data_dir.'Ultisnips']
   let g:UltiSnipsEditSplit          = "vertical"
 endif
 
