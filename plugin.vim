@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-06-17 18:08:56
+" Last Modified: 2021-07-05 00:58:49
 " File:          plugin.vim
 " License:       MIT
 
@@ -291,12 +291,20 @@ call dein#add('lwflwf1/vim-smart-hlsearch', {
   \ 'on_map': ['n', 'N', '*', '#', 'g*', 'g#', '/', '?']
   \ })
 
+call dein#add('vim-ruby/vim-ruby', {
+  \ 'lazy': 1,
+  \ 'on_ft': 'ruby',
+  \ })
+
 " call dein#add('haya14busa/incsearch.vim')
 " call dein#add('kana/vim-textobj-user')
 " call dein#add('skywind3000/vim-terminal-help')
 " call dein#add('skywind3000/vim-auto-popmenu')
 " call dein#add('Linfee/ultisnips-zh-doc')
 " call dein#add('SirVer/ultisnips')
+" call dein#add('jiangmiao/auto-pairs')
+" call dein#add('rhysd/clever-f.vim')
+" call dein#add('Shougo/defx.nvim')
 
 call dein#end()
 call dein#save_state()
@@ -880,7 +888,7 @@ endif
 
 if dein#tap('vim-gutentags')
 
-let g:gutentags_enabled = 1
+if executable('ctags') | let g:gutentags_enabled = 1 | endif
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_project_root = ['.project', '.root', '.gitignore']
 let g:gutentags_add_default_project_roots = 1
@@ -898,7 +906,7 @@ let g:gutentags_file_list_command = {
 if has('nvim')
 let s:tags_dir = stdpath('data').'/tags/'
 else
-let s:tags_dir = '~/tags/'
+let s:tags_dir = '~/.vim/tags/'
 endif
 if !isdirectory(s:tags_dir)
 silent! call mkdir(s:tags_dir, 'p')

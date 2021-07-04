@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-07-04 00:54:40
+" Last Modified: 2021-07-05 00:52:28
 " File:          basic.vim
 " License:       MIT
 
@@ -94,7 +94,9 @@ endif
 " winheight is not compatible with coc.nvim, must not set for now
 " set winheight=10
 " set winminheight=2
-set fillchars=eob:\ 
+if has('nvim')
+    set fillchars=eob:\ 
+endif
 if executable('rg')
     set grepformat=%f:%l:%m
     let &grepprg = 'rg --vimgrep' . (&smartcase ? ' --smart-case' : '')
