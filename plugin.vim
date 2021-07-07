@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-07-05 01:02:23
+" Last Modified: 2021-07-08 00:04:48
 " File:          plugin.vim
 " License:       MIT
 
@@ -109,11 +109,6 @@ call dein#add( 'skywind3000/vim-dict', {
 call dein#add( 'easymotion/vim-easymotion', {
   \ 'lazy': 1,
   \ 'on_map': '<Plug>(easymotion'
-  \ })
-
-call dein#add( 'justinmk/vim-sneak', {
-  \ 'lazy': 1,
-  \ 'on_map': '<Plug>Sneak'
   \ })
 
 call dein#add( 'sheerun/vim-polyglot', {
@@ -296,15 +291,21 @@ call dein#add('vim-ruby/vim-ruby', {
   \ 'on_ft': 'ruby',
   \ })
 
+call dein#add('jiangmiao/auto-pairs')
+
+call dein#add('rhysd/clever-f.vim')
+
+" call dein#add( 'justinmk/vim-sneak', {
+"   \ 'lazy': 1,
+"   \ 'on_map': '<Plug>Sneak'
+"   \ })
+
 " call dein#add('haya14busa/incsearch.vim')
 " call dein#add('kana/vim-textobj-user')
 " call dein#add('skywind3000/vim-terminal-help')
 " call dein#add('skywind3000/vim-auto-popmenu')
 " call dein#add('Linfee/ultisnips-zh-doc')
 " call dein#add('SirVer/ultisnips')
-" call dein#add('jiangmiao/auto-pairs')
-" call dein#add('rhysd/clever-f.vim')
-" call dein#add('Shougo/defx.nvim')
 
 call dein#end()
 call dein#save_state()
@@ -328,6 +329,12 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 "     " filetype, percentage, line number, total line numbers, column number
 "     set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
 " endif
+"
+
+if dein#tap('auto-pairs')
+  let g:AutoPairFlyMode = 0
+  let g:AutoPairShortBackInsert = ''
+endif
 
 if dein#tap('vim-session-manager')
   let g:session_default_session_enable = 0
@@ -731,7 +738,6 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-vimlsp',
   \ 'coc-pyright',
-  \ 'coc-pairs',
   \ 'coc-highlight',
   \ 'coc-sh',
   \ 'coc-lists',
@@ -906,7 +912,7 @@ let g:gutentags_file_list_command = {
 if has('nvim')
 let s:tags_dir = stdpath('data').'/tags/'
 else
-let s:tags_dir = '~/.vim/tags/'
+let s:tags_dir = $HOME.'/.vim/tags/'
 endif
 if !isdirectory(s:tags_dir)
 silent! call mkdir(s:tags_dir, 'p')

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-07-04 00:19:28
+" Last Modified: 2021-07-07 23:36:32
 " File:          keymap.vim
 " License:       MIT
 
@@ -49,12 +49,12 @@ nnoremap <expr> zz (winline() == &scrolloff + 1) ? 'zb'
 " inoremap <silent> <c-up> <esc>:move .-2<cr>==gi
 " vnoremap <silent> <c-down> :move '>+1<cr>gv=gv
 " vnoremap <silent> <c-up> :move '<-2<cr>gv=gv
-nnoremap <silent> <m-n> :<c-u>move .+1<cr>==
-nnoremap <silent> <m-p> :<c-u>move .-2<cr>==
-inoremap <silent> <m-n> <esc>:<c-u>move .+1<cr>==gi
-inoremap <silent> <m-p> <esc>:<c-u>move .-2<cr>==gi
-vnoremap <silent> <m-n> :<c-u>move '>+1<cr>gv=gv
-vnoremap <silent> <m-p> :<c-u>move '<-2<cr>gv=gv
+nnoremap <silent> <m-N> :<c-u>move .+1<cr>==
+nnoremap <silent> <m-P> :<c-u>move .-2<cr>==
+inoremap <silent> <m-N> <esc>:<c-u>move .+1<cr>==gi
+inoremap <silent> <m-P> <esc>:<c-u>move .-2<cr>==gi
+vnoremap <silent> <m-N> :<c-u>move '>+1<cr>gv=gv
+vnoremap <silent> <m-P> :<c-u>move '<-2<cr>gv=gv
 
 nnoremap <silent> tn    :<c-u>tabnew<CR>
 nnoremap <silent> tu    :<c-u>enew<CR>
@@ -72,16 +72,24 @@ nnoremap <m-h> <C-w>h
 nnoremap <m-j> <C-w>j
 nnoremap <m-k> <C-w>k
 nnoremap <m-l> <C-w>l
+inoremap <m-h> <esc><C-w>h
+inoremap <m-j> <esc><C-w>j
+inoremap <m-k> <esc><C-w>k
+inoremap <m-l> <esc><C-w>l
+tnoremap <m-h> <c-\><c-n><C-w>h
+tnoremap <m-j> <c-\><c-n><C-w>j
+tnoremap <m-k> <c-\><c-n><C-w>k
+tnoremap <m-l> <c-\><c-n><C-w>l
 nnoremap <leader>h <c-w>H
 nnoremap <leader>l <c-w>L
 nnoremap <leader>j <c-w>J
 nnoremap <leader>k <c-w>K
-nnoremap <silent> <up>       : <c-u>resize +5<CR>
-nnoremap <silent> <down>     : <c-u>resize -5<CR>
-nnoremap <silent> <left>     : <c-u>vertical resize -5<CR>
-nnoremap <silent> <right>    : <c-u>vertical resize +5<CR>
-nnoremap <silent> <leader>qn : <c-u>cnext<cr>
-nnoremap <silent> <leader>qp : <c-u>cprevious<cr>
+nnoremap <silent> <up>       :<c-u>resize +5<CR>
+nnoremap <silent> <down>     :<c-u>resize -5<CR>
+nnoremap <silent> <left>     :<c-u>vertical resize -5<CR>
+nnoremap <silent> <right>    :<c-u>vertical resize +5<CR>
+nnoremap <silent> <leader>qn :<c-u>cnext<cr>
+nnoremap <silent> <leader>qp :<c-u>cprevious<cr>
 
 nnoremap <silent> - :<c-u>bprevious<cr>
 nnoremap <silent> = :<c-u>bnext<cr>
