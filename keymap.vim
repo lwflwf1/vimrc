@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-07-07 23:36:32
+" Last Modified: 2021-07-30 23:41:34
 " File:          keymap.vim
 " License:       MIT
 
@@ -64,10 +64,23 @@ nnoremap <silent> <m-q> :<c-u>bd<CR>
 nnoremap <leader>wo <c-w>o
 nnoremap <leader>wr <c-w>R
 nnoremap <leader>wx <c-w>x
+nnoremap <leader>w= <c-w>=
+nnoremap <leader>wT <c-w>T
+nnoremap <leader>w] <c-w>]
+nnoremap <leader>wd <c-w>d
+nnoremap <leader>wf <c-w>f
+nnoremap <leader>wi <c-w>i
+nnoremap <leader>wgf <c-w>gf
+nnoremap <leader>wp <c-w>p
+nnoremap <leader>wq <c-w>q
 nnoremap <silent> <leader>wh :<c-u>leftabove vsplit<cr>
 nnoremap <silent> <leader>wl :<c-u>rightbelow vsplit<cr>
 nnoremap <silent> <leader>wj :<c-u>rightbelow split<cr>
 nnoremap <silent> <leader>wk :<c-u>leftabove split<cr>
+nnoremap <silent> <leader>wH :<c-u>topleft vsplit<cr>
+nnoremap <silent> <leader>wL :<c-u>botright vsplit<cr>
+nnoremap <silent> <leader>wJ :<c-u>botright split<cr>
+nnoremap <silent> <leader>wK :<c-u>topleft split<cr>
 nnoremap <m-h> <C-w>h
 nnoremap <m-j> <C-w>j
 nnoremap <m-k> <C-w>k

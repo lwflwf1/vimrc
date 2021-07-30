@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-07-08 00:04:48
+" Last Modified: 2021-07-30 23:29:35
 " File:          plugin.vim
 " License:       MIT
 
@@ -159,10 +159,10 @@ call dein#add( 'ludovicchabant/vim-gutentags', {
   \ 'on_event': 'BufReadPost'
   \ })
 
-call dein#add( 'gcmt/wildfire.vim', {
-  \ 'lazy': 1,
-  \ 'on_map': '<Plug>(wildfire-'
-  \ })
+" call dein#add( 'gcmt/wildfire.vim', {
+"   \ 'lazy': 1,
+"   \ 'on_map': '<Plug>(wildfire-'
+"   \ })
 
 call dein#add( 'mg979/vim-visual-multi', {
   \ 'lazy': 1,
@@ -294,6 +294,16 @@ call dein#add('vim-ruby/vim-ruby', {
 call dein#add('jiangmiao/auto-pairs')
 
 call dein#add('rhysd/clever-f.vim')
+
+call dein#add('vimwiki/vimwiki', {
+  \ 'lazy': 1,
+  \ 'on_ft': 'vimwiki',
+  \ })
+
+call dein#add('jceb/vim-orgmode', {
+  \ 'lazy': 1,
+  \ 'on_ft': 'org',
+  \ })
 
 " call dein#add( 'justinmk/vim-sneak', {
 "   \ 'lazy': 1,
@@ -675,7 +685,7 @@ nmap <silent> <leader>dd <Plug>(coc-diagnostic-info)
 
 nnoremap <silent> <leader>p  :<C-u>CocList -A --normal yank<cr>
 
-nnoremap <silent> tt :CocCommand explorer<CR>
+nnoremap <silent> <leader>e :CocCommand explorer<CR>
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
@@ -748,6 +758,7 @@ let g:coc_global_extensions = [
   \ 'coc-tasks',
   \ 'coc-marketplace',
   \ 'coc-yaml',
+  \ 'coc-solargraph',
   \ ]
 
   if has('nvim-0.3.1') || has('patch-8.1.1418')
@@ -823,7 +834,7 @@ let g:Lf_PreviewResult = {
   \ 'Buffer': 0,
   \ 'Mru': 0,
   \ 'Tag': 0,
-  \ 'BufTag': 1,
+  \ 'BufTag': 0,
   \ 'Function': 1,
   \ 'Line': 0,
   \ 'Colorscheme': 1,
@@ -858,7 +869,7 @@ nnoremap <silent> <leader>fL :LeaderfLineAll<CR>
 nnoremap <silent> <leader>fw :Leaderf line --cword<CR>
 nnoremap <silent> <leader>fr :Leaderf --recall<CR>
 nnoremap <silent> <leader>ft :LeaderfBufTagAll<CR>
-nnoremap <silent> <leader>fb :LeaderfBufTag<cr>
+nnoremap <silent> <leader>fb :Leaderf buffer<cr>
 " nnoremap <silent> <leader>fs :Leaderf floaterm<cr>
 nnoremap <silent> <leader>fc :LeaderfCommand<cr>
 nnoremap <silent> <leader>fh :LeaderfHistoryCmd<cr>
