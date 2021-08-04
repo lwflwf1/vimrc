@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-08-04 21:30:19
+" Last Modified: 2021-08-05 01:33:51
 " File:          plugin.vim
 " License:       MIT
 
@@ -303,6 +303,11 @@ call dein#add('vimwiki/vimwiki', {
 call dein#add('jceb/vim-orgmode', {
   \ 'lazy': 1,
   \ 'on_ft': 'org',
+  \ })
+
+call dein#add('itchyny/calendar.vim', {
+  \ 'lazy': 1,
+  \ 'on_cmd': 'Calendar',
   \ })
 
 " call dein#add( 'justinmk/vim-sneak', {
@@ -863,16 +868,14 @@ let g:Lf_WorkingDirectoryMode = 'AF'
 " let g:LF_PreviewInPopup = 1
 " endif
 
-" let s:leaderf_function_on = 0
-" function s:leaderfFunctionToggle() abort
-"   keepalt noautocmd windo if &ft ==# 'leaderf' | bwipeout! | endif
-"   if s:leaderf_function_on
-"     let s:leaderf_function_on = 0
-"   elseif !s:leaderf_function_on
-"     LeaderfFunction!
-"     let s:leaderf_function_on = 1
-"   endif
-" endfunction
+let g:Lf_RgConfig = [
+  \ "--hidden",
+  \]
+
+if executable('rg')
+  let g:Lf_DefaultExternalTool = 'rg'
+  let g:Lf_ExternalCommand = 'rg --files --no-ignore "%s"'
+endif
 
 let g:Lf_ShortcutF = "<leader>ff"
 nnoremap <leader>fF :LeaderfFile
@@ -893,7 +896,8 @@ nnoremap <silent> <leader>fk :LeaderMarks<cr>
 " nnoremap <silent> <leader>rg :Leaderf rg<CR>
 nnoremap <silent> <leader>rg :LeaderfRgInteractive<CR>
 nmap <silent> <leader>rw <Plug>LeaderfRgCwordLiteralBoundary<cr>
-xmap <silent> gf <Plug>LeaderfRgVisualLiteralNoBoundary<cr>
+nmap <silent> <leader>rW <Plug>LeaderfRgCwordLiteralNoBoundary<cr>
+xmap <silent> <leader>rg <Plug>LeaderfRgVisualLiteralNoBoundary<cr>
 endif
 
 if dein#tap('switch.vim')
