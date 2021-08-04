@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-07-30 23:29:35
+" Last Modified: 2021-08-04 21:30:19
 " File:          plugin.vim
 " License:       MIT
 
@@ -341,6 +341,10 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 " endif
 "
 
+if dein#tap('clever-f.vim')
+  let g:clever_f_ignore_case = 1
+endif
+
 if dein#tap('auto-pairs')
   let g:AutoPairFlyMode = 0
   let g:AutoPairShortBackInsert = ''
@@ -359,7 +363,7 @@ if dein#tap('wildfire.vim')
 endif
 
 if dein#tap('lightline.vim')
-  let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf']
+  let s:special_filetypes = ['coc-explorer', 'vista', 'sessionlist', 'help', 'fugitive', 'qf', 'floaterm']
   let s:lightline_nerd_font_enable = 1
   let s:nerd_font_icons = {
     \ 'modified'    : "●",
@@ -447,6 +451,16 @@ if dein#tap('lightline.vim')
     return &fileencoding
   endfunction
 
+  function MyLightlineVista() abort
+    if index(s:special_filetypes, &ft) !=# -1 || winwidth(0) < 70 | return '' | endif
+    let l:nearest_function = get(b:, 'vista_nearest_method_or_function', '')
+    if !empty(nearest_function)
+      return "\uf794 ".l:nearest_function
+    else
+      return ''
+    endif
+  endfunction
+
   function MyLightlineInactiveMode() abort
     if index(s:special_filetypes, &ft) !=# -1 | return &ft | endif
     return expand('%:t')
@@ -492,6 +506,7 @@ if dein#tap('lightline.vim')
     \   'fileformat'   : 'MyLightlineFileformat',
     \   'inactivemode' : 'MyLightlineInactiveMode',
     \   'cocstatus'    : 'MyLightlineCocStatus',
+    \   'vista'        : 'MyLightlineVista',
     \ },
     \ 'component_expand': {
     \    'buffers': 'lightline#bufferline#buffers',
@@ -510,7 +525,7 @@ if dein#tap('lightline.vim')
     \          ['readonly', 'git', 'filename', 'session', 'cocstatus',]],
     \ 'right': [['lineinfo'],
     \           ['percent'],
-    \           ['spell', 'filetype', 'fileencoding', 'fileformat']]
+    \           ['vista', 'spell', 'filetype', 'fileencoding', 'fileformat']]
     \ }
 
   let g:lightline.inactive = {
@@ -553,18 +568,18 @@ if dein#tap('vim-easymotion')
   let g:Easymotion_smartcase        = 1
   let g:Easymotion_smartsign_us     = 1
   let g:EasyMotion_space_jump_first = 1
-  map gj <Plug>(easymotion-j)
-  map gk <Plug>(easymotion-k)
-  map gs <Plug>(easymotion-s)
-  map gw <Plug>(easymotion-w)
-  map ge <Plug>(easymotion-e)
-  map gb <Plug>(easymotion-b)
-  map gW <Plug>(easymotion-W)
-  map gE <Plug>(easymotion-E)
-  map gB <Plug>(easymotion-B)
-  map gJ <Plug>(easymotion-eol-j)
-  map gK <Plug>(easymotion-eol-k)
-  map gl <Plug>(easymotion-jumptoanywhere)
+  map ;j <Plug>(easymotion-j)
+  map ;k <Plug>(easymotion-k)
+  map ;s <Plug>(easymotion-s)
+  map ;w <Plug>(easymotion-w)
+  map ;e <Plug>(easymotion-e)
+  map ;b <Plug>(easymotion-b)
+  map ;W <Plug>(easymotion-W)
+  map ;E <Plug>(easymotion-E)
+  map ;B <Plug>(easymotion-B)
+  map ;J <Plug>(easymotion-eol-j)
+  map ;K <Plug>(easymotion-eol-k)
+  map ;l <Plug>(easymotion-jumptoanywhere)
   " nmap ; <Plug>(easymotion-next)
   " nmap , <Plug>(easymotion-prev)
   if dein#tap('coc.nvim')
@@ -1312,8 +1327,8 @@ if dein#tap('vim-illuminate')
     \]
 endif
 
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 3
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 3
 
 let g:match_words = '\<if\>:\<endif\>:\<else\>,'
 \ . '\<while\>:\<continue\>,'
