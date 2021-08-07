@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-08-07 15:57:02
+" Last Modified: 2021-08-07 20:44:50
 " File:          plugin.vim
 " License:       MIT
 
@@ -300,15 +300,16 @@ call dein#add('vimwiki/vimwiki', {
   \ 'on_ft': 'vimwiki',
   \ })
 
-call dein#add('jceb/vim-orgmode', {
-  \ 'lazy': 1,
-  \ 'on_ft': 'org',
+call dein#add('kristijanhusak/orgmode.nvim', {
+  \ 'if': 'has("nvim-0.5")',
   \ })
 
 call dein#add('itchyny/calendar.vim', {
   \ 'lazy': 1,
   \ 'on_cmd': 'Calendar',
   \ })
+
+call dein#add('wlemuel/vim-tldr')
 
 " call dein#add( 'justinmk/vim-sneak', {
 "   \ 'lazy': 1,
@@ -345,6 +346,24 @@ call timer_start(100, { -> dein#source('coc.nvim')})
 "     set statusline+=%y\ %p%%\ ☰\ %l/%L\ :%c
 " endif
 "
+
+if dein#tap('vim-tldr')
+  let g:tldr_directory_path = g:data_dir.'tldr'
+  if !isdirectory('g:tldr_directory_path')
+    silent! call mkdir(g:tldr_directory_path, 'p')
+  endif
+  let g:tldr_language = 'zh'
+  if g:os == 'windows'
+    let g:tldr_enabled_categories = ["windows", "common"]
+  elseif g:os == 'unix'
+    let g:tldr_enabled_categories = ["linux", "common"]
+  else
+    let g:tldr_enabled_categories = ["osx", "common"]
+  endif
+endif
+
+if dein#tap('orgmode.nvim')
+endif
 
 if dein#tap('clever-f.vim')
   let g:clever_f_ignore_case = 1
@@ -940,12 +959,12 @@ let g:gutentags_file_list_command = {
 
 " set the directory of the tags file
 if has('nvim')
-let s:tags_dir = stdpath('data').'/tags/'
+  let s:tags_dir = stdpath('data').'/tags/'
 else
-let s:tags_dir = $HOME.'/.vim/tags/'
+  let s:tags_dir = $HOME.'/.vim/tags/'
 endif
 if !isdirectory(s:tags_dir)
-silent! call mkdir(s:tags_dir, 'p')
+  silent! call mkdir(s:tags_dir, 'p')
 endif
 
 let g:gutentags_cache_dir = s:tags_dir

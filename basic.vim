@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-07-05 00:52:28
+" Last Modified: 2021-08-07 23:55:32
 " File:          basic.vim
 " License:       MIT
 
@@ -48,7 +48,7 @@ set autochdir
 set wrap
 set noruler
 set linebreak
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 set scrolloff=3 " make the cursor always 5 lines from the top or bottom
 set sidescrolloff=5
 set completeopt=menu,menuone,noselect

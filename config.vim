@@ -2,13 +2,13 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:52:14
-" Last Modified: 2021-07-07 00:09:39
+" Last Modified: 2021-08-08 01:02:49
 " File:          config.vim
 " License:       MIT
 
 if has('nvim')
-    let g:python3_host_prog = 'c:/disk_1/Miniconda/envs/study/python.exe'
-    let g:python_host_prog = 'c:/disk_1/Miniconda/envs/study/python.exe'
+    let g:python3_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python'
+    let g:python_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python'
     let g:data_dir = stdpath('data').'/'
 else
     let g:data_dir = $HOME.'/.vim/'
