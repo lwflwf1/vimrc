@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-08-05 01:33:51
+" Last Modified: 2021-08-07 15:57:02
 " File:          plugin.vim
 " License:       MIT
 
@@ -1113,7 +1113,7 @@ let g:vista_executive_for = {
   \ 'vim': 'coc',
   \ }
 
-nnoremap <silent> <leader>v :Vista!!<cr>
+nnoremap <silent> <leader>V :Vista!!<cr>
 
 endif
 
@@ -1329,6 +1329,22 @@ if dein#tap('vim-illuminate')
     \ 'git',
     \ 'gitcommit',
     \]
+endif
+
+if dein#tap('verilog_systemverilog.vim')
+  let g:verilog_navigate_split = "v"
+  let g:verilog_indent_assign_fix = 1
+  let g:verilog_syntax_fold_lst = "all"
+  let g:verilog_efm_level = "warning"
+  let g:verilog_efm_uvm_lst = "fatal,error,warning"
+  " let g:verilog_efm_quickfix_clean = 1
+  " let g:verilog_efm_custom = %t:\ %m
+
+  nnoremap <leader>vi :VerilogFollowInstance<cr>
+  nnoremap <leader>vp :VerilogFollowPort<cr>
+  nnoremap <leader>vr :VerilogReturnInstance<cr>
+  nnoremap <leader>vg :VerilogGotoInstanceStart<cr>
+  nnoremap <leader>ve :VerilogErrorFormat vcs 1<cr>
 endif
 
 " let g:netrw_liststyle = 3

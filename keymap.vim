@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-08-04 00:24:16
+" Last Modified: 2021-08-07 12:19:58
 " File:          keymap.vim
 " License:       MIT
 
@@ -102,11 +102,17 @@ nnoremap <silent> <up>       :<c-u>resize +5<CR>
 nnoremap <silent> <down>     :<c-u>resize -5<CR>
 nnoremap <silent> <left>     :<c-u>vertical resize -5<CR>
 nnoremap <silent> <right>    :<c-u>vertical resize +5<CR>
+
 nnoremap <silent> <leader>qn :<c-u>cnext<cr>
 nnoremap <silent> <leader>qp :<c-u>cprevious<cr>
+nnoremap <silent> <leader>ql :<c-u>clist<cr>
 
 nnoremap <silent> - :<c-u>bprevious<cr>
 nnoremap <silent> = :<c-u>bnext<cr>
+
+nnoremap <silent> <leader>tn :<c-u>tnext<cr>
+nnoremap <silent> <leader>tp :<c-u>tprevious<cr>
+nnoremap <silent> <leader>ts :<c-u>tselect<cr>
 
 inoremap <silent> <c-k> <c-r>=functions#ToggleCaseInInsertMode()<cr>
 
