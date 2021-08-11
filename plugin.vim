@@ -1280,7 +1280,7 @@ if dein#tap('indentLine')
   " indentLine will overwrite 'conceal' color with grey by default.
   " If you want to highlight conceal color with your colorscheme, disable by:
   let g:indentLine_setColors = 0
-  let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help']
+  let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help', 'git', 'log']
 endif
 
 if dein#tap('far.vim')
