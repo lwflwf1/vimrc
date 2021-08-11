@@ -2,20 +2,19 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:52:14
-" Last Modified: 2021-08-08 01:02:49
+" Last Modified: 2021-08-08 13:52:13
 " File:          config.vim
 " License:       MIT
 
 if has('nvim')
-    let g:python3_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python'
-    let g:python_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python'
     let g:data_dir = stdpath('data').'/'
+    let g:python3_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python.exe'
+    let g:python_host_prog = 'c:/disk_1/Miniconda/envs/neovim/python.exe'
+    let g:perl_host_prog = 'c:/disk_1/Perl/StrawberryPerl5.30/perl/bin/perl5.30.1.exe'
+    let g:node_host_prog = 'c:/Users/79941/AppData/Roaming/npm/node_modules/neovim/bin/cli.js'
 else
     let g:data_dir = $HOME.'/.vim/'
 endif
-
-" let g:perl_host_prog = 'C:/disk_1/Perl/StrawberryPerl5.30/perl/bin/perl5.30.1.exe'
-" let g:python_highlight_all = 1
 
 if has('win32') || has('win64')
     let g:os = 'windows'
@@ -26,7 +25,6 @@ else
 endif
 
 let g:dein_dir = 'C:/Users/79941/AppData/Local/nvim-data/dein'
-set rtp+=C:/disk_1/fzf
 
 " this saves startup time
 if g:os ==# 'windows'
