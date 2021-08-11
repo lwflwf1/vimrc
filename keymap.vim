@@ -112,7 +112,7 @@ nnoremap <silent> = :<c-u>bnext<cr>
 
 nnoremap <silent> <leader>tn :<c-u>tnext<cr>
 nnoremap <silent> <leader>tp :<c-u>tprevious<cr>
-nnoremap <silent> <leader>ts :<c-u>tselect<cr>
+nnoremap <silent> <leader>ts :<c-u>execute "tselect ".expand("<cword>")
 
 inoremap <silent> <c-k> <c-r>=functions#ToggleCaseInInsertMode()<cr>
 
