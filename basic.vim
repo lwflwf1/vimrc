@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-08-07 23:55:32
+" Last Modified: 2021-08-14 16:34:10
 " File:          basic.vim
 " License:       MIT
 
@@ -252,6 +252,7 @@ unlet s:view_dir
 unlet s:dir_list
 
 execute "nohlsearch"
+language en
 
 "if (empty($TMUX))
 "    if (has("nvim"))

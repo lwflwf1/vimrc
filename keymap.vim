@@ -2,14 +2,14 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:54:10
-" Last Modified: 2021-08-07 12:19:58
+" Last Modified: 2021-08-17 00:30:03
 " File:          keymap.vim
 " License:       MIT
 
 let mapleader = " "
 
-nnoremap <silent> <leader>or :silent execute("e ".g:vimrc)<cr>
-nnoremap <silent> <leader>sr :silent execute("source ".g:vimrc)<cr>
+nnoremap <silent> <leader>ov :silent execute("e ".g:vimrc)<cr>
+nnoremap <silent> <leader>sv :silent execute("source ".g:vimrc)<cr>
 
 map H ^
 map L $

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-08-07 20:44:50
+" Last Modified: 2021-08-17 01:16:38
 " File:          plugin.vim
 " License:       MIT
 
@@ -363,6 +363,39 @@ if dein#tap('vim-tldr')
 endif
 
 if dein#tap('orgmode.nvim')
+  let g:org_dir = g:data_dir.'org'
+  if !isdirectory('g:tldr_directory_path')
+    silent! call mkdir(g:tldr_directory_path, 'p')
+  endif
+  execute "lua require('orgmode').setup({
+    \ org_agenda_files = '".escape(g:org_dir, ' \')."/*',
+    \ org_default_notes_file = '".escape(g:org_dir, ' \')."/refile.org',
+    \ org_todo_keywords = {'TODO(t)', 'DOING(i)', 'SUSPEND(s)', '|', 'DONE(d)', 'CANCELED(c)'},
+    \ org_todo_keyword_faces = {
+      \ DOING    = ':foreground #7fff00',
+      \ SUSPEND  = ':foreground orchid',
+      \ CANCELED = ':foreground gold'
+    \ },
+    \ org_hide_leading_stars            = true,
+    \ org_hide_emphasis_markers         = true,
+    \ org_agenda_span                   = 'day',
+    \ org_agenda_skip_deadline_if_done  = true,
+    \ org_agenda_skip_scheduled_if_done = true,
+    \ mappings = {
+      \ org = {
+        \ org_forward_heading_same_level          = ']',
+        \ org_backward_heading_same_level         = '[',
+        \ org_move_subtree_down                   = '<leader>oj',
+        \ org_move_subtree_up                     = '<leader>ok',
+        \ org_insert_todo_heading_respect_content = '<leader>ot',
+        \ org_insert_todo_heading                 = '<leader>oT',
+        \ org_insert_heading_respect_content      = '<leader>oh',
+        \ org_meta_return                         = '<m-cr>',
+        \ org_set_tags_command                    = '<leader>og',
+        \ org_open_at_point                       = '<cr>',
+      \}
+    \}
+    \})"
 endif
 
 if dein#tap('clever-f.vim')
@@ -911,7 +944,7 @@ nnoremap <silent> <leader>fb :Leaderf buffer<cr>
 nnoremap <silent> <leader>fc :LeaderfCommand<cr>
 nnoremap <silent> <leader>fh :LeaderfHistoryCmd<cr>
 nnoremap <silent> <leader>fq :LeaderfQuickFix<cr>
-nnoremap <silent> <leader>fk :LeaderMarks<cr>
+nnoremap <silent> <leader>fk :LeaderfMarks<cr>
 " nnoremap <silent> <leader>rg :Leaderf rg<CR>
 nnoremap <silent> <leader>rg :LeaderfRgInteractive<CR>
 nmap <silent> <leader>rw <Plug>LeaderfRgCwordLiteralBoundary<cr>
@@ -1288,7 +1321,7 @@ nnoremap <silent> <m--> :FloatermKill<CR>
 tnoremap <silent> <m--> <C-\><C-n>:FloatermKill<CR>
 nnoremap <silent> <m-f> :FloatermNew fzf<cr>
 nnoremap <silent> <m-r> :FloatermNew rg<cr>
-nnoremap <silent> <c-g> :FloatermNew --name=lazygit --width=1.0 --height=1.0 lazygit<cr>
+nnoremap <silent> <c-g> :FloatermNew --title=lazygit --width=1.0 --height=1.0 lazygit<cr>
 
 endif
 
@@ -1299,7 +1332,7 @@ if dein#tap('indentLine')
   " indentLine will overwrite 'conceal' color with grey by default.
   " If you want to highlight conceal color with your colorscheme, disable by:
   let g:indentLine_setColors = 0
-  let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help', 'git', 'log']
+  let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help', 'git', 'log', 'org', 'orgagenda']
 endif
 
 if dein#tap('far.vim')
@@ -1347,6 +1380,8 @@ if dein#tap('vim-illuminate')
     \ 'markdown',
     \ 'git',
     \ 'gitcommit',
+    \ 'org',
+    \ 'orgagenda'
     \]
 endif
 
