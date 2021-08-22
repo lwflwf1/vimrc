@@ -2,7 +2,7 @@
 " Maintainer    : lwflwf1
 " Website       : https://github.com/lwflwf1/vimrc.com
 " Created Time  : 2021-04-26 19:55:52
-" Last Modified : 2021-04-30 16:03:33
+" Last Modified : 2021-08-22 16:23:57
 " File          : functions.vim
 " License       : MIT
 
@@ -50,9 +50,9 @@ function! functions#MoveTabOrBuf(direction) abort
     endif
   else
     if a:direction == 0
-      exec 'bprevious'
+      exec 'BufferLineCyclePrev'
     elseif a:direction == 1
-      exec 'bnext'
+      exec 'BufferLineCycleNext'
     endif
   endif
 endfunction

@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-08-17 01:16:38
+" Last Modified: 2021-09-05 14:41:37
 " File:          plugin.vim
 " License:       MIT
 
@@ -74,8 +74,16 @@ call dein#add('ajmwagar/vim-deus')
 call dein#add( 'joshdick/onedark.vim')
 " call dein#add('romgrk/doom-one.vim')
 call dein#add( 'ryanoasis/vim-devicons')
+call dein#add('kyazdani42/nvim-web-devicons', {
+  \ 'if': 'has("nvim")',
+  \ })
 call dein#add('itchyny/lightline.vim')
-call dein#add('mengelbrecht/lightline-bufferline')
+call dein#add('akinsho/bufferline.nvim', {
+  \ 'if': 'has("nvim-0.5")',
+  \ })
+call dein#add('mengelbrecht/lightline-bufferline', {
+  \ 'if': '!has("nvim-0.5")',
+  \ })
 " call dein#add('romgrk/barbar.nvim')
 " call dein#add('theniceboy/eleline.vim')
 " call dein#add('glepnir/spaceline.vim')
@@ -143,10 +151,10 @@ call dein#add( 'AndrewRadev/switch.vim', {
   \ 'on_cmd': 'Switch'
   \ })
 
-call dein#add( 'Yggdroot/indentLine', {
-  \ 'lazy': 1,
-  \ 'on_event': 'BufReadPre'
-  \ })
+" call dein#add( 'Yggdroot/indentLine', {
+"   \ 'lazy': 1,
+"   \ 'on_event': 'BufReadPre'
+"   \ })
 
 call dein#add( 'vhda/verilog_systemverilog.vim', {
   \ 'lazy': 1,
@@ -304,12 +312,21 @@ call dein#add('kristijanhusak/orgmode.nvim', {
   \ 'if': 'has("nvim-0.5")',
   \ })
 
-call dein#add('itchyny/calendar.vim', {
-  \ 'lazy': 1,
-  \ 'on_cmd': 'Calendar',
-  \ })
+" call dein#add('nvim-lua/plenary.nvim', {
+"   \ 'if': 'has("nvim")',
+"   \ })
 
-call dein#add('wlemuel/vim-tldr')
+" call dein#add('lewis6991/gitsigns.nvim', {
+"   \ 'if': 'has("nvim-0.5")',
+"   \ 'depends': 'plenary.nvim',
+"   \ })
+
+" call dein#add('itchyny/calendar.vim', {
+"   \ 'lazy': 1,
+"   \ 'on_cmd': 'Calendar',
+"   \ })
+
+" call dein#add('wlemuel/vim-tldr')
 
 " call dein#add( 'justinmk/vim-sneak', {
 "   \ 'lazy': 1,
@@ -360,6 +377,35 @@ if dein#tap('vim-tldr')
   else
     let g:tldr_enabled_categories = ["osx", "common"]
   endif
+endif
+
+if dein#tap('bufferline.nvim')
+  lua require("bufferline").setup{
+    \ options = {
+      \ numbers = "none",
+      \ number_style = "none",
+      \ offsets = {{filetype = "coc-explorer", text = "File Explorer", highlight = "Directory"}},
+      \ mappings = false,
+    \}
+  \}
+  nnoremap <silent> <leader>bn :BufferLineMoveNext<cr>
+  nnoremap <silent> <leader>bp :BufferLineMovePrev<cr>
+  nnoremap <silent> <leader>bb :BufferLinePick<cr>
+  nnoremap <silent> <leader>bl :BufferLineCloseLeft<cr>
+  nnoremap <silent> <leader>br :BufferLineCloceRight<cr>
+  nnoremap <silent> <leader>bd :BufferLineSortByDirectory<cr>
+  nnoremap <silent> <leader>be :BufferLineSortByExtension<cr>
+  nnoremap <silent> <leader>bt :BufferLineSortByTabs<cr>
+
+  nnoremap <silent> <leader>1 :BufferLineGoToBuffer 1<cr>
+  nnoremap <silent> <leader>2 :BufferLineGoToBuffer 2<cr>
+  nnoremap <silent> <leader>3 :BufferLineGoToBuffer 3<cr>
+  nnoremap <silent> <leader>4 :BufferLineGoToBuffer 4<cr>
+  nnoremap <silent> <leader>5 :BufferLineGoToBuffer 5<cr>
+  nnoremap <silent> <leader>6 :BufferLineGoToBuffer 6<cr>
+  nnoremap <silent> <leader>7 :BufferLineGoToBuffer 7<cr>
+  nnoremap <silent> <leader>8 :BufferLineGoToBuffer 8<cr>
+  nnoremap <silent> <leader>9 :BufferLineGoToBuffer 9<cr>
 endif
 
 if dein#tap('orgmode.nvim')
@@ -929,8 +975,10 @@ if executable('rg')
   let g:Lf_ExternalCommand = 'rg --files --no-ignore "%s"'
 endif
 
-let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_ShortcutF = ""
+let g:Lf_ShortcutB = ""
 nnoremap <leader>fF :LeaderfFile
+nnoremap <silent> <leader>ff :LeaderfFile<cr>
 nnoremap <silent> <leader>fm :LeaderfMru<CR>
 nnoremap <silent> <leader>fu :LeaderfFunction<CR>
 " nnoremap <silent> <F12> :call <SID>leaderfFunctionToggle()<CR>
@@ -939,7 +987,7 @@ nnoremap <silent> <leader>fL :LeaderfLineAll<CR>
 nnoremap <silent> <leader>fw :Leaderf line --cword<CR>
 nnoremap <silent> <leader>fr :Leaderf --recall<CR>
 nnoremap <silent> <leader>ft :LeaderfBufTagAll<CR>
-nnoremap <silent> <leader>fb :Leaderf buffer<cr>
+nnoremap <silent> <leader>fb :LeaderfBuffer<cr>
 " nnoremap <silent> <leader>fs :Leaderf floaterm<cr>
 nnoremap <silent> <leader>fc :LeaderfCommand<cr>
 nnoremap <silent> <leader>fh :LeaderfHistoryCmd<cr>
@@ -1332,7 +1380,18 @@ if dein#tap('indentLine')
   " indentLine will overwrite 'conceal' color with grey by default.
   " If you want to highlight conceal color with your colorscheme, disable by:
   let g:indentLine_setColors = 0
-  let g:indentLine_fileTypeExclude = ['vista', 'coc-explorer', 'help', 'git', 'log', 'org', 'orgagenda']
+  let g:indentLine_fileTypeExclude = [
+    \ 'vista',
+    \ 'coc-explorer',
+    \ 'help',
+    \ 'git',
+    \ 'log',
+    \ 'org',
+    \ 'orgagenda',
+    \ ]
+  let g:indentLine_bufTypeExclude = [
+    \ 'popup',
+    \ ]
 endif
 
 if dein#tap('far.vim')
