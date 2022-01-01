@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:55:35
-" Last Modified: 2021-09-05 14:41:37
+" Last Modified: 2022-01-01 16:27:26
 " File:          plugin.vim
 " License:       MIT
 
@@ -383,11 +383,16 @@ if dein#tap('bufferline.nvim')
   lua require("bufferline").setup{
     \ options = {
       \ numbers = "none",
-      \ number_style = "none",
       \ offsets = {{filetype = "coc-explorer", text = "File Explorer", highlight = "Directory"}},
-      \ mappings = false,
+      \ diagnostics = "coc",
+      \ diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      \   local icon = level:match("error") and " " or " "
+      \   return " " .. icon .. count
+      \ end
     \}
   \}
+  " \ mappings = false,
+  " \ number_style = "none",
   nnoremap <silent> <leader>bn :BufferLineMoveNext<cr>
   nnoremap <silent> <leader>bp :BufferLineMovePrev<cr>
   nnoremap <silent> <leader>bb :BufferLinePick<cr>

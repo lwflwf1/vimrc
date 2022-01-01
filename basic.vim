@@ -2,7 +2,7 @@
 " Maintainer:    lwflwf1
 " Website:       https://github.com/lwflwf1/vimrc
 " Created Time:  2021-04-21 16:49:06
-" Last Modified: 2021-08-14 16:34:10
+" Last Modified: 2021-09-05 14:57:42
 " File:          basic.vim
 " License:       MIT
 
@@ -279,9 +279,14 @@ augroup update_last_modified_on_write
   autocmd BufWritePre * call functions#UpdateLastModified()
 augroup END
 
+augroup nonumber_group
+    autocmd!
+    autocmd FileType help,git,gitcommit setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no
+augroup END
+
 augroup nolist_group
     autocmd!
-    autocmd FileType help,git,gitcommit setlocal nolist | setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no
+    autocmd FileType help,git,gitcommit,log,text setlocal nolist
 augroup END
 
 augroup q_for_quit_on_helpfile_group

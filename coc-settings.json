@@ -51,9 +51,7 @@
     /* "jedi.diagnostics.enable": false, */
     /* "jedi.enable": false, */
 
-    "tabnine.binary_path":
-    "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/3.5.54/x86_64-pc-windows-gnu/TabNine.exe",
-
+    "tabnine.binary_path": "c:/Users/79941/AppData/Roaming/Code/User/globalStorage/tabnine.tabnine-vscode/binaries/4.0.43/x86_64-pc-windows-gnu/TabNine.exe",
     "explorer.openAction.strategy": "select",
     "explorer.width": 40,
     "explorer.quitOnOpen": false,
